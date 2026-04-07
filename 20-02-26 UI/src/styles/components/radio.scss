@@ -1,0 +1,26 @@
+@use '../mixin.scss' as mixin;
+.ant-radio-wrapper {
+  margin: 0;
+  color: rgb(var(--dark-title));
+  @include mixin.font(16, 500, 19);
+  .ant-radio {
+    &.ant-radio-checked {
+      &::after {
+        border-color: rgb(var(--primary-color));
+      }
+      .ant-radio-inner {
+        &::after {
+          transform: scale(0.656);
+          background-color: rgb(var(--primary-color));
+        }
+      }
+    }
+    .ant-radio-inner {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  span.ant-radio + * {
+    padding-inline: 4px;
+  }
+}

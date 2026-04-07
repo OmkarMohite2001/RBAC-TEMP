@@ -1,0 +1,60 @@
+.ant-alert {
+    font-size: 14px;
+    line-height: 18px;
+  
+    .ant-alert-message {
+      color: inherit;
+    }
+    .ant-alert-icon {
+      color: inherit;
+    }
+  
+    &.ant-alert-success {
+      border-color: rgb(var(--success-dark));
+      background: rgb(var(--success-light));
+    }
+  
+    &.ant-alert-info {
+      border-color: rgb(var(--info-dark));
+      background: rgb(var(--info-light));
+    }
+  
+    &.ant-alert-warning {
+      border-color: rgb(var(--warning-dark));
+      background: rgb(var(--warning-light));
+    }
+  
+    &.ant-alert-error {
+      border-color: rgb(var(--error-dark));
+      background: rgb(var(--error-light));
+    }
+  }
+  
+  .borderless {
+    .ant-alert {
+      padding: 0;
+      border: 0;
+      background: transparent;
+  
+      .ant-alert-icon {
+        margin-right: 4px;
+      }
+  
+      &.ant-alert-success {
+        color: rgb(var(--success-dark));
+      }
+  
+      &.ant-alert-info {
+        color: rgb(var(--info-dark));
+      }
+  
+      &.ant-alert-warning {
+        color: rgb(var(--warning-dark));
+      }
+  
+      &.ant-alert-error {
+        color: rgb(var(--error-dark));
+      }
+    }
+  }
+  

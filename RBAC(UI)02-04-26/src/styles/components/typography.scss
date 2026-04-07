@@ -1,0 +1,75 @@
+// Heading Size
+.title {
+  color: rgb(var(--gray-900));
+  font-weight: 600;
+  margin-bottom: 0;
+  &.s-12 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  &.s-16 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  &.s-18 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  &.s-24 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  &.s-30 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+}
+
+// Content Text
+.text {
+  margin-bottom: 0;
+  &.s-12 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  &.s-14 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  &.s-16 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  &.s-18 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  &.s-20 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  &.s-24 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  &.s-30 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+  &.s-36 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  &.s-48 {
+    font-size: 48px;
+    line-height: 60px;
+  }
+  &.s-60 {
+    font-size: 60px;
+    line-height: 72px;
+  }
+  &.s-72 {
+    font-size: 72px;
+    line-height: 90px;
+  }
+}

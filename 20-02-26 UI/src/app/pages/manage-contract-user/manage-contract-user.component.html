@@ -1,0 +1,302 @@
+<div class="list-page">
+  <nz-page-header [nzGhost]="false">
+    <nz-page-header-title>Contract Users List</nz-page-header-title>
+    <nz-page-header-extra>
+      <button nz-button class="btn-gray" (click)="clearFilter()">
+        Clear Filters
+      </button>
+      <button nz-button nzType="primary" (click)="openModel(mode.ADD)">
+        <svg-icon src="assets/icon/add-icon.svg"></svg-icon> Add Contract User
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <!-- ===== Table List ===== -->
+
+  <nz-table #filterTable nzBordered [nzData]="contractUserList" [nzTotal]="totalRecord"
+    [nzFrontPagination]="false" nzTableLayout="fixed" [nzLoading]="loading" [nzPageSize]="pageOptions.pageSize"
+    [(nzPageIndex)]="pageOptions.page" (nzQueryParams)="onParamsChange($event)" [nzFooter]="tableFooter">
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+        <th [nzShowSort]="column.sortFn" [nzSortFn]="true" [nzColumnKey]="column.key" [nzWidth]="column.width">
+          {{ column.name }}
+        </th>
+        }
+
+        <th class="action-head" rowSpan="2">Action</th>
+      </tr>
+      <tr class="filter-row">
+        <th *ngFor="let column of listOfColumns">
+          <ng-container *ngIf="column.filter">
+            <ng-container [ngSwitch]="column.filter.type">
+              <ng-container *ngSwitchCase="'text'">
+                <ng-container *ngTemplateOutlet="textFilterTemp; context: { $implicit: column }">
+                </ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'dropdown'">
+                <ng-container *ngTemplateOutlet="dropdownFilterTemp; context: { $implicit: column }">
+                </ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'date'">
+                <ng-container *ngTemplateOutlet="dateFilterTemp; context: { $implicit: column }">
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (data of filterTable.data; track data) {
+      <tr>
+        <td>{{ data.employeeCode }}</td>
+        <td>{{ data.contractEmpId }}</td>
+        <td>{{ data.firstName }}</td>
+        <td>{{ data.lastName }}</td>
+        <td>{{ data.userRole }}</td>
+        <td>{{ data.departmentName }}</td>
+        <td>
+          <nz-tag [nzColor]="data['isActive'] ? 'green' : 'red'">
+            {{ data['isActive'] ? 'Active' : 'Inactive' }}
+          </nz-tag>
+        </td>
+        <td>
+          {{ data.employeeStartDate | date: 'dd/MM/yyyy' }}
+        </td>
+        <td>
+          {{ data.employeeEndDate | date: 'dd/MM/yyyy' }}
+        </td>
+        <td>
+          <div class="table-actions">
+            <span nz-tooltip nzTooltipTitle="View">
+              <button nz-button (click)="openModel(mode.VIEW, data)">
+                <svg-icon src="assets/icon/table/eye-fill.svg"></svg-icon>
+              </button>
+            </span>
+            <span nz-tooltip nzTooltipTitle="Edit">
+              <button nz-button (click)="openModel(mode.EDIT, data)">
+                <svg-icon src="assets/icon/table/pen-fill.svg"></svg-icon>
+              </button>
+            </span>
+            <!-- <span nz-tooltip nzTooltipTitle="Sync">
+              <button nz-button nzType="default" (click)="syncUser(data)">
+                <svg-icon src="assets/icon/table/sync.svg"></svg-icon>
+              </button>
+            </span> -->
+          </div>
+        </td>
+
+          <!-- <td>
+            <div class="table-actions">
+              <span nz-tooltip nzTooltipTitle="View">
+                <button nz-button (click)="openModel(mode.VIEW, data)">
+                  <svg-icon src="assets/icon/table/eye-fill.svg"></svg-icon>
+                </button>
+              </span>
+              <span nz-tooltip nzTooltipTitle="Edit">
+                <button nz-button (click)="openModel(mode.EDIT, data)">
+                  <svg-icon src="assets/icon/table/pen-fill.svg"></svg-icon>
+                </button>
+              </span>
+            </div>
+          </td> -->
+      </tr>
+      }
+    </tbody>
+
+    <!-- Custom Table Footer -->
+    <ng-template #tableFooter>
+      <app-table-footer [page]="pageOptions.page" [totalRecords]="totalRecord" (changePage)="changePage($event)"
+        (changePageSize)="changePageSize($event)">
+      </app-table-footer>
+    </ng-template>
+
+    <!-- Filter Templates -->
+    <ng-template #textFilterTemp let-column>
+      <input type="text" [formControl]="control(column.key)" nz-input placeholder="Search" />
+    </ng-template>
+
+    <ng-template #dropdownFilterTemp let-column>
+      <nz-select *ngIf="column.key === 'roleId'" nzShowSearch nzAllowClear nzPlaceHolder="Select"
+        [formControl]="control(column.key)">
+        <nz-option *ngFor="let type of roleList" [nzValue]="type.id" [nzLabel]="type.name" />
+      </nz-select>
+
+      <nz-select *ngIf="column.key === 'departmentId'" nzShowSearch nzAllowClear nzPlaceHolder="Select"
+        [formControl]="control(column.key)">
+        <nz-option *ngFor="let type of departmentList" [nzValue]="type.id" [nzLabel]="type.name" />
+      </nz-select>
+
+      <nz-select *ngIf="column.key === 'isActive'" nzAllowClear nzPlaceHolder="Select"
+        [formControl]="control(column.key)">
+        <nz-option nzValue="true" nzLabel="Active"></nz-option>
+        <nz-option nzValue="false" nzLabel="Inactive"></nz-option>
+      </nz-select>
+    </ng-template>
+
+    <ng-template #dateFilterTemp let-column>
+      <nz-date-picker nzFormat="dd-MM-yyyy" [formControl]="control(column.key)" nzPlaceHolder="Select Date">
+      </nz-date-picker>
+    </ng-template>
+  </nz-table>
+
+  
+
+
+  <!-- <nz-table
+    #filterTable
+    nzBordered
+    [nzData]="(users$ | async)?.result?.data ?? []"
+    [nzTotal]="totalRecord"
+    [nzFrontPagination]="false"
+    nzTableLayout="fixed"
+    [nzLoading]="loading"
+    [nzPageSize]="pageOptions.pageSize"
+    [(nzPageIndex)]="pageOptions.page"
+    (nzQueryParams)="onParamsChange($event)"
+    [nzFooter]="tableFooter">
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          <th
+            [nzShowSort]="column.sortFn"
+            [nzSortFn]="true"
+            [nzColumnKey]="column.key"
+            [nzWidth]="column.width">
+            {{ column.name }}
+          </th>
+        }
+
+        <th class="action-head" rowSpan="2">Action</th>
+      </tr>
+      <tr class="filter-row">
+        <th *ngFor="let column of listOfColumns">
+          <ng-container *ngIf="column.filter">
+            <ng-container [ngSwitch]="column.filter.type">
+              <ng-container *ngSwitchCase="'text'">
+                <ng-container
+                  *ngTemplateOutlet="textFilterTemp; context: { $implicit: column }">
+                </ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'dropdown'">
+                <ng-container
+                  *ngTemplateOutlet="dropdownFilterTemp; context: { $implicit: column }">
+                </ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'date'">
+                <ng-container
+                  *ngTemplateOutlet="dateFilterTemp; context: { $implicit: column }">
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of filterTable.data; track data) {
+        <tr>
+          <td>{{ data.firstName }}</td>
+          <td>{{ data.lastName }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ getRoleNames(data.roles).join(', ') }}</td>
+          <td>{{ getDepartmentNames(data.departments).join(', ') }}</td>
+          <td>
+            <nz-tag [nzColor]="data.isActive ? 'green' : 'red'">
+              {{ data?.isActive ? 'Active' : 'Inactive' }}
+            </nz-tag>
+          </td>
+          <td>
+            {{
+              data.updatedByUser
+                ? data.updatedByUser.firstName + ' ' + data.updatedByUser.lastName
+                : '-'
+            }}
+          </td>
+          <td>
+            <div nz-flex [nzVertical]="true">
+              <span class="title-12">
+                {{ data.updatedOn | utcToLocal | date: 'dd/MM/yyyy hh:mm a' }}
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="table-actions">
+              <span nz-tooltip nzTooltipTitle="View">
+                <button nz-button (click)="openModel(mode.VIEW, data)">
+                  <svg-icon src="assets/icon/table/eye-fill.svg"></svg-icon>
+                </button>
+              </span>
+              <span nz-tooltip nzTooltipTitle="Edit">
+                <button nz-button (click)="openModel(mode.EDIT, data)">
+                  <svg-icon src="assets/icon/table/pen-fill.svg"></svg-icon>
+                </button>
+              </span>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+
+    Custom Table Footer -->
+  <!-- <ng-template #tableFooter>
+      <app-table-footer
+        [page]="pageOptions.page"
+        [totalRecords]="totalRecord"
+        (changePage)="changePage($event)"
+        (changePageSize)="changePageSize($event)">
+      </app-table-footer>
+    </ng-template>
+
+    <ng-template #textFilterTemp let-column>
+      <input
+        type="text"
+        [formControl]="control(column.key)"
+        nz-input
+        placeholder="Search" />
+    </ng-template>
+
+    <ng-template #dropdownFilterTemp let-column>
+      <nz-select
+        *ngIf="column.key === 'roleId'"
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Select"
+        [formControl]="control(column.key)">
+        <nz-option
+          *ngFor="let type of roleList"
+          [nzValue]="type.id"
+          [nzLabel]="type.name" />
+      </nz-select>
+      <nz-select
+        *ngIf="column.key === 'departmentId'"
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Select"
+        [formControl]="control(column.key)">
+        <nz-option
+          *ngFor="let type of departmentList"
+          [nzValue]="type.id"
+          [nzLabel]="type.name" />
+      </nz-select>
+      <nz-select
+        nzAllowClear
+        nzPlaceHolder="Select"
+        [formControl]="control(column.key)"
+        *ngIf="column.key === 'isActive'">
+        <nz-option nzValue="true" nzLabel="Active"></nz-option>
+        <nz-option nzValue="false" nzLabel="Inactive"></nz-option>
+      </nz-select>
+    </ng-template>
+
+    <ng-template #dateFilterTemp let-column>
+      <nz-date-picker
+        nzFormat="dd-MM-yyyy"
+        [formControl]="control(column.key)"
+        nzPlaceHolder="Select Date">
+      </nz-date-picker>
+    </ng-template>
+  </nz-table> -->
+</div>

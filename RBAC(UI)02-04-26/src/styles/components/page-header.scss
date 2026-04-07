@@ -1,0 +1,125 @@
+@use '../mixin.scss' as mixin;
+
+.ant-page-header {
+  background-color: transparent;
+  margin-bottom: 22px;
+  padding: 0;
+  border: 0;
+
+  &-heading {
+    gap: 16px;
+  }
+
+  &-heading-left {
+    margin: 0;
+    // flex-basis: 200px;
+  }
+  &.header-full {
+    .ant-page-header-heading-left {
+      flex-basis: 200px;
+    }
+  }
+  &-heading-extra {
+    margin: 0;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    @include mixin.media-max(lg) {
+      gap: 12px;
+    }
+
+    .ant-btn {
+      @include mixin.media-max(lg) {
+        height: 30px;
+        font-size: 14px;
+        padding: 4px 12px;
+      }
+    }
+
+    &.header-form {
+      align-items: end;
+
+      .formset {
+        max-width: 100%;
+        &.fs2 {
+          width: 600px;
+
+          @include mixin.media-max(md) {
+            width: 100%;
+          }
+        }
+      }
+
+      .ant-form-item {
+        margin: 0;
+      }
+    }
+  }
+
+  &-back {
+    min-width: 60px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    color: rgb(var(--primary-color));
+
+    @include mixin.media-max(lg) {
+      min-width: 30px;
+    }
+
+    .ant-page-header-back-button {
+      color: inherit;
+
+      // User Accessibility
+      &:focus-visible {
+        outline: 2px solid rgb(var(--black));
+      }
+    }
+  }
+
+  &-heading-title {
+    margin: 0;
+    @include mixin.font(18, 700, 22);
+  }
+
+  &-content {
+    padding-top: 8px;
+  }
+
+  &.gap-md {
+    .ant-page-header-content {
+      padding-top: 20px;
+    }
+  }
+
+  .header-switch {
+    .title-16 {
+      font-weight: 500;
+    }
+  }
+}
+
+// Header Button Group
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: right;
+  align-items: center;
+  @include mixin.media-max(lg) {
+    justify-content: left;
+    gap: 6px;
+  }
+
+  .ant-btn {
+    @include mixin.media-max(lg) {
+      height: 24px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzWidth]="479"
+  [nzClosable]="false"
+  [nzMaskClosable]="false"
+  nzCentered
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleConfirm()"
+  [nzFooter]="modalFooter"
+  [nzWrapClassName]="'modal-confirm modal-' + modalType">
+  <ng-container *nzModalContent>
+    <div nz-flex [nzVertical]="true" [nzGap]="25" [nzAlign]="'center'">
+      <div class="modal-icon-wrap">
+        <svg-icon
+          [src]="
+            modalType === 'restore'
+              ? 'assets/icon/icon-restore.svg'
+              : 'assets/icon/icon-trash-lg.svg'
+          "
+          class="icon s-54"></svg-icon>
+      </div>
+      <div nz-flex [nzVertical]="true" [nzGap]="8">
+        <p class="title-16">Are you sure ?</p>
+        <p class="title-12">
+          Do you want to {{ modalType === 'restore' ? 'restore' : 'delete' }}
+          <b>{{ itemName }}</b
+          >?
+        </p>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <div class="m-footer-left">
+      <button nz-button class="btn-gray btn-modal" (click)="handleCancel()">
+        Cancel
+      </button>
+      <button
+        nz-button
+        [nzType]="'primary'"
+        [nzDanger]="modalType === 'delete'"
+        class="btn-modal"
+        [ngClass]="{ 'btn-success': modalType === 'restore' }"
+        (click)="handleConfirm()">
+        {{ modalType === 'restore' ? 'Restore' : 'Delete' }}
+      </button>
+    </div>
+  </ng-template>
+</nz-modal>

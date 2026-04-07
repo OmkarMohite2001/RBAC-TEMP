@@ -1,0 +1,26 @@
+.ant-switch {
+  background: rgb(var(--border));
+
+  &:hover {
+    background: rgb(var(--gray-300));
+  }
+
+  .ant-switch-handle {
+    &::before {
+      box-shadow:
+        0 1px 3px rgb(var(--gray-800), 0.1),
+        0 1px 2px rgb(var(--gray-800), 0.06);
+    }
+  }
+
+  .ant-switch-inner {
+  }
+
+  .ant-click-animating-node {
+    display: none;
+  }
+
+  &.ant-switch-checked {
+    background: rgb(var(--green-active));
+  }
+}

@@ -1,0 +1,61 @@
+@use '../mixin.scss' as mixin;
+
+.ant-pagination {
+  ul {
+    li {
+      .ant-pagination-item-link,
+      &.ant-pagination-item {
+        background: rgb(var(--gray-200));
+        border-color: rgb(var(--gray-200));
+        color: rgb(var(--gray-400));
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 700;
+        min-width: 40px;
+        height: 40px;
+        line-height: 38px;
+
+        @include mixin.media-max(md) {
+          min-width: 30px;
+          height: 30px;
+          line-height: 28px;
+        }
+
+        &:hover {
+          background: rgb(var(--white));
+          border-color: rgb(var(--primary-color));
+          color: rgb(var(--primary-color));
+        }
+
+        &.ant-pagination-item-active {
+          background: rgb(var(--primary-color));
+          color: rgb(var(--white));
+        }
+
+        a {
+          color: inherit;
+        }
+      }
+
+      &.ant-pagination-prev,
+      &.ant-pagination-next {
+        min-width: 40px;
+        height: 40px;
+        line-height: 40px;
+        @include mixin.media-max(md) {
+          min-width: 30px;
+          height: 30px;
+          line-height: 30px;
+        }
+      }
+
+      &.ant-pagination-disabled {
+        .ant-pagination-item-link {
+          background: rgb(var(--gray-300));
+          border-color: rgb(var(--gray-300));
+          color: rgb(var(--gray-500));
+        }
+      }
+    }
+  }
+}

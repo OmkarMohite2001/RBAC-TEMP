@@ -1,0 +1,15 @@
+.tile {
+  min-width: 195px;
+  border: 1px solid rgb(var(--border));
+  border-radius: 4px;
+  padding: 10px;
+  background-color: rgb(var(--background));
+  .title {
+    font-weight: 700;
+    color: rgb(var(--primary-color));
+    margin-bottom: 5px;
+  }
+  .text {
+    color: rgb(var(--dark-title));
+  }
+}

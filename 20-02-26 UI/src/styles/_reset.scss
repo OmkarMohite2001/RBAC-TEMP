@@ -1,0 +1,100 @@
+/* Reset margins, paddings, and borders */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+html,
+body {
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Reset form elements */
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Reset buttons */
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+/* Autofill reset styling for consistent appearance */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  // -webkit-box-shadow: 0 0 0px 1000px rgb(var(--bg-primary)) inset !important;
+  // box-shadow: 0 0 0px 1000px rgb(var(--bg-primary)) inset !important;
+  -webkit-text-fill-color: rgb(var(--gray-500)) !important;
+  transition: background-color 5000s ease-in-out 0s;
+  font-size: 16px !important;
+}
+
+/* Reset for all browser-specific styles */
+input:-internal-autofill-selected {
+  appearance: none;
+  background-image: none !important;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+figure {
+  margin: 0;
+}
+
+address,
+dl,
+ol,
+p,
+pre,
+ul {
+  margin-bottom: 0;
+}
+
+iframe {
+  border: none;
+  max-width: 100%;
+}
+
+/* Remove animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

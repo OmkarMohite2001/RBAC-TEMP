@@ -1,0 +1,57 @@
+<form
+  nz-form
+  [nzLayout]="'vertical'"
+  (ngSubmit)="submitForm()"
+  [formGroup]="form">
+  <div nz-row [nzGutter]="[20, 0]" nzAlign="bottom">
+    <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+      <p class="clone-role-warning" *ngIf="!isCloneRole">
+        Do you want to clone existing role?
+      </p>
+      <nz-form-item *ngIf="isCloneRole">
+        <nz-form-label nzFor="roleId" [nzRequired]="true">Roles</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="roleIdsErrorTpl"
+          [nzValidateStatus]="isInvalidField('roleId')">
+          <nz-select
+            [nzPlaceHolder]="'Select'"
+            id="roleId"
+            formControlName="roleId"
+            nzAllowClear
+            nzShowSearch>
+            <nz-option
+              *ngFor="let role of roleOption"
+              [nzValue]="role.id"
+              [nzLabel]="role.name">
+            </nz-option>
+          </nz-select>
+          <ng-template #roleIdsErrorTpl let-control>
+            <ng-container>
+              {{ getControlErrorMessage('roleId', 'Roles') }}
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <ng-container *nzModalFooter>
+    <div class="m-footer-left">
+      <button
+        nz-button
+        class="btn-gray"
+        (click)="!isCloneRole ? openModel() : handleCancel()">
+        {{ !isCloneRole ? 'No' : 'Cancel' }}
+      </button>
+    </div>
+    <div class="m-footer-left">
+      <!-- update text as per modal  -->
+      <button
+        nz-button
+        nzType="primary"
+        [nzLoading]="loading"
+        (click)="!isCloneRole ? changeMode() : submitForm()">
+        {{ !isCloneRole ? 'Yes' : 'Continue' }}
+      </button>
+    </div>
+  </ng-container>
+</form>

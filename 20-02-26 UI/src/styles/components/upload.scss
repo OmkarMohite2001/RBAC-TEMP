@@ -1,0 +1,80 @@
+@use '../mixin.scss' as mixin;
+.ant-upload {
+  &.ant-upload-drag {
+    &.ant-upload-drag {
+      border-radius: 5px;
+      background-color: rgb(var(--gray-50));
+      border: 1px dashed rgb(var(--border));
+      &:not(.ant-upload-disabled) {
+        &:hover {
+          background-color: rgb(var(--white));
+          border: 1px solid rgb(var(--primary-color));
+        }
+      }
+      .ant-upload-drag-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .ant-upload-drag-icon {
+          flex-shrink: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 40px;
+          height: 40px;
+          background-color: rgb(var(--white));
+          border-radius: 50%;
+          color: rgb(var(--primary-color));
+        }
+        .ant-upload-link-text {
+          color: rgb(var(--primary-color));
+          @include mixin.font(14, 700, 17);
+        }
+      }
+      p {
+        &.ant-upload-text {
+          color: rgb(var(--gray-10));
+          margin: 0;
+        }
+      }
+    }
+  }
+  &.ant-upload-btn {
+    &.ant-upload-btn {
+      padding: 15px;
+    }
+  }
+}
+//   uploaded file list view
+.ant-upload-list-picture {
+  .ant-upload-list-item {
+    height: 70px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(var(--gray-50));
+    border: 1px solid;
+  }
+  .ant-upload-span {
+    gap: 18px;
+  }
+  .ant-upload-list-item-name {
+    padding-inline: 0;
+  }
+  .ant-upload-list-item-thumbnail {
+    width: 40px;
+    height: 40px;
+    img {
+      height: 100%;
+    }
+  }
+}
+.ant-upload-list-item-card-actions-btn {
+  &.ant-btn-sm {
+    width: 37px;
+    height: 36px;
+    border: 1px solid rgb(var(--border));
+    background-color: rgb(var(--white));
+    border-radius: 4px;
+  }
+}

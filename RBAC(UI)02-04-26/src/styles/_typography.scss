@@ -1,0 +1,43 @@
+@use './mixin.scss' as mixin;
+
+.title {
+  &-26 {
+    @include mixin.font(26, 700, 32);
+    color: rgb(var(--gray-800));
+  }
+  &-20 {
+    @include mixin.font(20, 700, 24);
+    color: rgb(var(--gray-800));
+  }
+  &-16 {
+    @include mixin.font(16, 600, 22);
+    color: rgb(var(--gray-800));
+  }
+  &-14 {
+    @include mixin.font(14, 700, 20);
+    color: rgb(var(--gray-800));
+  }
+  &-12 {
+    @include mixin.font(12, 400, 15);
+    color: rgb(var(--gray-800));
+  }
+}
+
+// Font Weight
+.fw {
+  &-300 {
+    font-weight: 300;
+  }
+  &-400 {
+    font-weight: 400;
+  }
+  &-500 {
+    font-weight: 500;
+  }
+  &-600 {
+    font-weight: 600;
+  }
+  &-700 {
+    font-weight: 700;
+  }
+}

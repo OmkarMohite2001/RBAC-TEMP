@@ -1,0 +1,40 @@
+.ant-tag {
+    font-size: 12px;
+    padding: 3px 16px;
+    border-radius: 30px;
+    line-height: 16px;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+  
+    &.ant-tag-red {
+      color: rgb(var(--error-dark));
+      background: rgb(var(--error-light));
+      border-color: rgb(var(--error-dark));
+    }
+  
+    &.ant-tag-green {
+      color: rgb(var(--success-dark));
+      background: rgb(var(--success-light));
+      border-color: rgb(var(--success-dark));
+    }
+  
+    &.ant-tag-gold {
+      color: rgb(var(--warning-dark));
+      background: rgb(var(--warning-light));
+      border-color: rgb(var(--warning-dark));
+    }
+  
+    &.ant-tag-blue {
+      color: rgb(var(--info-dark));
+      background: rgb(var(--info-light));
+      border-color: rgb(var(--info-dark));
+    }
+  
+    &.ant-tag-default {
+      color: rgb(var(--default-dark));
+      background: rgb(var(--default-light));
+      border-color: rgb(var(--default-dark));
+    }
+  }
+  

@@ -1,0 +1,81 @@
+<nz-spin [nzSpinning]="loading$ | async">
+  <form
+    nz-form
+    [nzLayout]="'vertical'"
+    (ngSubmit)="submitForm()"
+    [formGroup]="form">
+    <div nz-row [nzGutter]="[20, 0]" nzAlign="top">
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label nzFor="name" [nzRequired]="true"
+            >Module Name</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="NameErrorTpl"
+            [nzValidateStatus]="isInvalidField('name')">
+            <input
+              id="name"
+              type="text"
+              nz-input
+              formControlName="name"
+              placeholder="Enter Module Name" />
+            <ng-template #NameErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('name', 'Module name') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label nzFor="parentModuleId"
+            >Parent Module Name</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="parentModuleIdErrorTpl"
+            [nzValidateStatus]="isInvalidField('parentModuleId')">
+            <nz-select
+              id="parentModuleId"
+              nzShowSearch
+              nzAllowClear
+              formControlName="parentModuleId"
+              [nzPlaceHolder]="'Select'">
+              <nz-option
+                *ngFor="let module of parentModuleOption"
+                [nzValue]="module.id"
+                [nzLabel]="module.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #parentModuleIdErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('parentModuleId', 'Parent Module') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <ng-container *nzModalFooter>
+      <div class="m-footer-left">
+        <button nz-button class="btn-gray" (click)="handleCancel()">
+          Cancel
+        </button>
+        <button nz-button class="btn-sky-blue" (click)="resetForm()">
+          Reset
+        </button>
+      </div>
+      <div class="m-footer-left">
+        <!-- update text as per modal  -->
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="form.invalid"
+          [nzLoading]="loading"
+          (click)="submitForm()">
+          {{ displayMode === mode.ADD ? 'Save' : 'Update' }}
+        </button>
+      </div>
+    </ng-container>
+  </form>
+</nz-spin>

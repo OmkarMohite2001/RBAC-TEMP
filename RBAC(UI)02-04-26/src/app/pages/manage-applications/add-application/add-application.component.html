@@ -1,0 +1,182 @@
+<nz-spin [nzSpinning]="loading$ | async">
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="form">
+    <div nz-row [nzGutter]="[20, 0]" nzAlign="top">
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="displayMode !== mode.VIEW"
+            >Application Name</nz-form-label
+          >
+          <!-- if want error state add  [nzValidateStatus]="'error'" -->
+          <nz-form-control
+            [nzErrorTip]="applicationNameErrorTpl"
+            [nzValidateStatus]="isInvalidField('name')">
+            <input
+              type="text"
+              nz-input
+              formControlName="name"
+              name="applicationName"
+              placeholder="Enter Application Name" />
+            <ng-template #applicationNameErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('name', 'Application name') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="displayMode !== mode.VIEW"
+            >Enter Description</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="descriptionErrorTpl"
+            [nzValidateStatus]="isInvalidField('description')">
+            <textarea
+              nz-input
+              rows="4"
+              formControlName="description"
+              placeholder="Enter Description"></textarea>
+            <ng-template #descriptionErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('description', 'Description') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="displayMode !== mode.VIEW">
+            API End point URL</nz-form-label
+          >
+          <!-- if want error state add  [nzValidateStatus]="'error'" -->
+          <nz-form-control
+            [nzErrorTip]="apiUrlErrorTpl"
+            [nzValidateStatus]="isInvalidField('apiEndpointUrl')">
+            <input
+              type="text"
+              nz-input
+              name="apiEndPointUrl"
+              formControlName="apiEndpointUrl"
+              placeholder="Enter  API End point URL" />
+            <ng-template #apiUrlErrorTpl let-control>
+              <ng-container>
+                {{
+                  getControlErrorMessage('apiEndpointUrl', 'Api end point url')
+                }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="displayMode !== mode.VIEW">
+            Access Key</nz-form-label
+          >
+          <!-- if want error state add  [nzValidateStatus]="'error'" -->
+          <nz-form-control
+            [nzErrorTip]="accessKeyTpl"
+            [nzValidateStatus]="isInvalidField('accessKey')">
+            <input
+              type="text"
+              nz-input
+              name="accessKey"
+              formControlName="accessKey"
+              placeholder="Enter Access Key" />
+            <ng-template #accessKeyTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('accessKey', 'Access Key') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item *ngIf="displayMode !== mode.ADD">
+          <nz-form-label [nzRequired]="displayMode !== mode.VIEW">
+            API Key</nz-form-label
+          >
+          <!-- if want error state add  [nzValidateStatus]="'error'" -->
+          <nz-form-control
+            [nzErrorTip]="apiKeyTpl"
+            [nzValidateStatus]="isInvalidField('apiKey')">
+            <input
+              type="text"
+              nz-input
+              name="apiKey"
+              formControlName="apiKey"
+              placeholder="Enter API Key" />
+            <ng-template #apiKeyTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('apiKey', 'API Key') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div
+        nz-col
+        [nzXs]="24"
+        [nzMd]="24"
+        [nzLg]="24"
+        *ngIf="displayMode !== mode.ADD">
+        <nz-form-item>
+          <nz-form-label nzFor="isActive" [nzRequired]="true"
+            >Select Status</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="isActiveErrorTpl"
+            [nzValidateStatus]="isInvalidField('isActive')">
+            <nz-radio-group id="isActive" formControlName="isActive">
+              <div nz-flex nzAlign="center" nzWrap="wrap" [nzGap]="64">
+                <span nz-radio [nzValue]="true">Active</span>
+                <span nz-radio [nzValue]="false">In Active</span>
+              </div>
+            </nz-radio-group>
+            <ng-template #isActiveErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('isActive', 'Status') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <ng-container *nzModalFooter>
+      <div class="m-footer-left">
+        <button nz-button class="btn-gray" (click)="handleCancel()">
+          Cancel
+        </button>
+        <button
+          nz-button
+          class="btn-sky-blue"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="resetForm()">
+          Reset
+        </button>
+      </div>
+      <div class="m-footer-left">
+        <!-- update text as per modal  -->
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!isFormValueChange && displayMode === mode.EDIT"
+          [nzLoading]="loading"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="submitForm()">
+          {{ displayMode === mode.ADD ? 'Save' : 'Update' }}
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="form.invalid"
+          *ngIf="displayMode === mode.VIEW"
+          (click)="changeMode()">
+          Edit
+        </button>
+      </div>
+    </ng-container>
+  </form>
+</nz-spin>

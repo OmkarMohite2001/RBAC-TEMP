@@ -1,0 +1,87 @@
+<nz-spin [nzSpinning]="loading$ | async">
+  <div class="list-page bg-white">
+    <div nz-flex [nzGap]="20" nzAlign="center" nzJustify="space-between">
+      <nz-breadcrumb class="mb-20" [nzSeparator]="iconTemplate">
+        <nz-breadcrumb-item (click)="goToApplications()">
+          <svg-icon
+            src="assets/icon/icon-home.svg"
+            class="icon s-20"></svg-icon>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>View Application</nz-breadcrumb-item>
+        <ng-template #iconTemplate>
+          <span>
+            <svg-icon
+              src="assets/icon/icon-breadcrumb-sep.svg"
+              class="icon s-16"></svg-icon
+          ></span>
+        </ng-template>
+      </nz-breadcrumb>
+      <!-- <button nz-button nzType="primary" (click)="openModel(mode.ADD)">
+        <svg-icon src="assets/icon/add-icon.svg"></svg-icon>
+        Add New Module
+      </button> -->
+    </div>
+    <form nz-form [nzLayout]="'vertical'">
+      <div nz-row [nzGutter]="[20, 0]" nzAlign="top">
+        <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="12">
+          <nz-form-item>
+            <nz-form-label>Application Name</nz-form-label>
+            {{ applicationData.name }}
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="12">
+          <nz-form-item>
+            <nz-form-label> Status</nz-form-label>
+            {{ applicationData.isActive ? 'Active' : 'In Active' }}
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="12">
+          <nz-form-item>
+            <nz-form-label> Description</nz-form-label>
+            {{ applicationData.description }}
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="12">
+          <nz-form-item>
+            <nz-form-label> API Key</nz-form-label>
+            {{ applicationData.apiKey }}
+          </nz-form-item>
+        </div>
+        <div class="mb-20" nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+          <button
+            nz-button
+            type="button"
+            nzType="primary"
+            (click)="syncModules()"
+            [nzLoading]="loadingSync">
+            <svg-icon src="assets/icon/add-icon.svg"></svg-icon>
+            Sync Modules
+          </button>
+          <nz-page-header-content>
+            <nz-alert
+              nzType="error"
+              nzMessage="To sync modules with the application, please click this button"
+              class="borderless"
+              [nzIcon]="errorIcon"
+              nzShowIcon></nz-alert>
+            <ng-template #errorIcon>
+              <svg-icon src="assets/icon/error-icon.svg"></svg-icon>
+            </ng-template>
+          </nz-page-header-content>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+          <app-checable-tree
+            [nodes]="nodes"
+            (updateModule)="onUpdateModule($event)"></app-checable-tree>
+        </div>
+        <!-- <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+          <nz-divider class="mb-30"></nz-divider>
+          <div nz-flex [nzGap]="20" nzJustify="space-between" nzAlign="center">
+            <button nz-button class="btn-tersary">Cancel</button>
+            <button nz-button nzType="primary">Update</button>
+          </div>
+        </div> -->
+      </div>
+    </form>
+  </div>
+</nz-spin>

@@ -1,0 +1,50 @@
+.ant-spin {
+    .ant-spin-dot {
+      width: 30px;
+      height: 30px;
+      .ant-spin-dot-item {
+        width: 14px;
+        height: 14px;
+        background-color: rgb(var(--gray-800));
+      }
+    }
+  }
+  
+  // Ant Spinner Table
+  .ant-table-wrapper {
+    .ant-spin-nested-loading {
+      .ant-spin {
+        max-height: 100%;
+      }
+  
+      // .ant-spin-container {
+      //   opacity: 0.4;
+  
+      //   &:after {
+      //     background: rgb(var(--gray-50));
+      //   }
+      // }
+    }
+  }
+  
+  // Full Page .fullpage
+  .fullpage {
+    &.ant-spin-nested-loading {
+      & > div {
+        & > .ant-spin {
+          &.ant-spin-spinning {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background: rgb(var(--white), 0.65);
+            z-index: 99;
+          }
+          max-height: 100%;
+        }
+      }
+    }
+  }
+  

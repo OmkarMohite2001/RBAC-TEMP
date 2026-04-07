@@ -1,0 +1,81 @@
+@use '../../../../styles/mixin.scss' as mixin;
+
+::ng-deep {
+  .ant-layout-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 220px;
+    padding: 15px 30px;
+    transition: none;
+    z-index: 9;
+    height: 77px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background-color: rgb(var(--gray-200));
+    border-bottom: 1px solid rgb(var(--border));
+
+    @include mixin.media-max(lg) {
+      gap: 12px;
+      padding: 10px 16px;
+      height: 70px;
+      left: 0;
+    }
+
+    .page-title {
+      @include mixin.font(18, 700, 24);
+      color: rgb(var(--gray-900));
+      margin: 0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      @include mixin.media-max(lg) {
+        @include mixin.font(14, 700, 16);
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+
+      @include mixin.media-max(lg) {
+        gap: 12px;
+      }
+
+      img {
+        display: block;
+
+        &.logo-kepl {
+          max-height: 30px;
+        }
+
+        &.logo-kbl {
+          max-height: 46px;
+        }
+      }
+
+      .ant-select {
+        width: 130px;
+        max-width: 100%;
+        &.ant-select-single {
+          .ant-select-selector {
+          }
+        }
+      }
+    }
+
+    // SIdebar Menu Action
+    .btn-menu {
+      display: none;
+      width: 30px;
+
+      @include mixin.media-max(lg) {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "themes": {
+    "default": {
+      "white": "#ffffff",
+      "black": "#000000",
+
+      "primary-color": "#009FFD",
+      "primary-bg": "#C1E2F7",
+      "primary-light": "#CCEFFF",
+
+      "brand-50": "#e1f4fc",
+      "brand-100": "#c7eedd",
+      "brand-200": "#b1e7ce",
+      "brand-300": "#3E4020",
+      "brand-400": "#6fd0a3",
+      "brand-500": "#43c187",
+      "brand-600": "#17b26a",
+      "brand-700": "#128e55",
+      "brand-800": "#0e6b40",
+      "brand-900": "#09472a",
+
+      "gray-10": "#3E404C",
+      "gray-50": "#F1F3F5",
+      "gray-100": "#f2f4f7",
+      "gray-200": "#f8f9fa",
+      "gray-300": "#d0d5dd",
+      "gray-400": "#acb5bd",
+      "gray-500": "#667085",
+      "gray-600": "#4e575e",
+      "gray-700": "#344054",
+      "gray-800": "#272B31",
+      "gray-900": "#101828",
+
+      "gray-111": "#EAECEF",
+      "gray-250":"#DDDDDD",
+
+
+      "error-dark": "#C60000",
+      "error-medium": "#fee4e2",
+      "error-light": "#FAE6E6",
+
+      "warning-dark": "#ECA51C",
+      "warning-medium": "#feecc7",
+      "warning-light": "#FEF6E9",
+
+      "success-dark": "#1E9500",
+      "success-medium": "#dcfae6",
+      "success-light": "#E9F5E6",
+
+      "info-dark": "#407BFF",
+      "info-medium": "#dcfae6",
+      "info-light": "#ECF2FF",
+
+      "default-dark": "#6A7178",
+      "default-medium": "#dcfae6",
+      "default-light": "#EFF0F2",
+
+      "menu-action": "#C5D434",
+      "menu-action-dark": "#3e4020",
+
+      "dark-title": "#272B31",
+      "border": "#DEE2E6",
+      "background": "#F1F3F5",
+      "description": "#6A7178",
+
+      "orange-dark": "#F97F51",
+      "orange-light": "#fea47f",
+      "pink-dark": "#EF5366",
+      "pink-light": "#fd7272",
+      "green-dark": "#14AE5C",
+      "green-light": "#55e6c1",
+      "red-dark": "#6D214F",
+      "red-light": "#b33771",
+      "blue-dark": "#182C61",
+      "blue-light": "#3b3b98",
+      "purple-dark": "#82589F",
+      "purple-light": "#d6a2e8",
+      "green-active": "#3CB33D"
+    },
+
+    "dark": {
+      "white": "#ffffff",
+      "black": "#000000",
+
+      "primary-color": "#17b26a",
+      "primary-bg": "#128e55",
+      "primary-light": "#CCEFFF",
+
+      "brand-50": "#e1f4fc",
+      "brand-100": "#c7eedd",
+      "brand-200": "#b1e7ce",
+      "brand-300": "#9bdfc0",
+      "brand-400": "#6fd0a3",
+      "brand-500": "#43c187",
+      "brand-600": "#17b26a",
+      "brand-700": "#128e55",
+      "brand-800": "#0e6b40",
+      "brand-900": "#09472a",
+
+      "gray-10": "#3E404C",
+      "gray-50": "#f9fafb",
+      "gray-100": "#f2f4f7",
+      "gray-200": "#eaecf0",
+      "gray-300": "#d0d5dd",
+      "gray-400": "#98a2b3",
+      "gray-500": "#667085",
+      "gray-600": "#475467",
+      "gray-700": "#344054",
+      "gray-800": "#182230",
+      "gray-900": "#101828",
+
+      "gray-111": "#EAECEF",
+      "gray-250":"#DDDDDD",
+
+      "error-dark": "#fef3f2",
+      "error-medium": "#fee4e2",
+      "error-light": "#fecdca",
+
+      "warning-dark": "#fffaeb",
+      "warning-medium": "#feecc7",
+      "warning-light": "#fedf89",
+
+      "success-dark": "#ecfdf3",
+      "success-medium": "#dcfae6",
+      "success-light": "#abf3c6",
+
+      "info-dark": "#ecfdf3",
+      "info-medium": "#dcfae6",
+      "info-light": "#abf3c6",
+
+      "default-dark": "#ecfdf3",
+      "default-medium": "#dcfae6",
+      "default-light": "#abf3c6",
+
+      "menu-action": "#C5D434",
+      "menu-action-dark": "#3e4020",
+
+      "dark-title": "#272B31",
+      "border": "#DEE2E6",
+      "background": "#F1F3F5",
+      "description": "#6A7178",
+
+      "orange-dark": "#F97F51",
+      "orange-light": "#fea47f",
+      "pink-dark": "#EF5366",
+      "pink-light": "#fd7272",
+      "green-dark": "#14AE5C",
+      "green-light": "#55e6c1",
+      "red-dark": "#6D214F",
+      "red-light": "#b33771",
+      "blue-dark": "#272b31",
+      "blue-light": "#3b3b98",
+      "purple-dark": "#82589F",
+      "purple-light": "#d6a2e8",
+      "green-active": "#3CB33D"
+    }
+  }
+}

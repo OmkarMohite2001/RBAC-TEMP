@@ -1,0 +1,535 @@
+@use '../mixin.scss' as mixin;
+
+.ant-table-wrapper {
+  background: rgb(var(--white));
+  border: 1px solid rgb(var(--border));
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.ant-table-header {
+  // overflow: hidden !important;
+}
+.nz-table-hide-scrollbar {
+  scrollbar-color: rgb(var(--gray-111)) rgb(var(--gray-111));
+  min-height: 83px;
+  // overflow: hidden;
+  scrollbar-width: thin;
+  @include mixin.media-max(lg) {
+    min-height: 76px;
+  }
+}
+.ant-table-container {
+  overflow: auto;
+  border: 0;
+}
+
+.ant-table {
+  overflow: auto;
+
+  table {
+    border: 0;
+  }
+
+  .ant-table-content,
+  .ant-table-container {
+    .ant-table-thead,
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          &.text-left {
+            text-align: left;
+          }
+
+          &.text-right {
+            text-align: right;
+          }
+        }
+      }
+    }
+
+    .ant-table-thead {
+      .ant-table-row {
+        .ant-table-cell {
+          padding: 10px 15px 8px;
+          background-color: rgb(var(--gray-111));
+          @include mixin.font(14, 700, 18);
+
+          &:before {
+            display: none;
+          }
+
+          &.action-head {
+            width: 110px;
+            text-align: center;
+
+            &.count-4 {
+              width: 140px;
+            }
+
+            &.count-2 {
+              width: 90px;
+            }
+
+            &.count-1 {
+              width: 60px;
+            }
+          }
+
+          @include mixin.media-max(lg) {
+            padding: 8px 8px 6px;
+          }
+
+          .ant-table-column-title {
+            // white-space: nowrap;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
+          }
+
+          // Sorting
+          .ant-table-column-sorters {
+            padding-right: 16px;
+            background-size: 14px;
+            background-position: right center;
+            background-repeat: no-repeat;
+
+            .ant-table-column-sorter {
+              display: none;
+            }
+          }
+
+          &.ant-table-column-has-sorters {
+            .ant-table-column-sorters {
+              background-image: url('./../../assets/icon/sort-icon.svg');
+            }
+          }
+
+          &.ant-table-column-sort {
+            [ng-reflect-sort-order='ascend'] {
+              &.ant-table-column-sorters {
+                background-image: url('./../../assets/icon/sort-icon-up.svg') !important;
+              }
+            }
+
+            [ng-reflect-sort-order='descend'] {
+              &.ant-table-column-sorters {
+                background-image: url('./../../assets/icon/sort-icon-down.svg');
+              }
+            }
+          }
+
+          &.checkbox-colhead {
+            text-align: center;
+          }
+        }
+
+        &:not(.filter-row) {
+          .ant-table-cell {
+            &:last-child {
+              border-right: 0;
+            }
+          }
+        }
+
+        // Table Filter Row ==========
+        &.filter-row {
+          .ant-table-cell {
+            padding: 2px 15px 10px 15px;
+
+            @include mixin.media-max(lg) {
+              padding: 2px 8px 6px 8px;
+            }
+
+            .ant-input {
+              @include mixin.input-style(34px, 6px 10px, 4px, 12px);
+              font-weight: 600;
+
+              &:hover,
+              &:focus {
+                border-color: rgb(var(--primary-color));
+              }
+            }
+
+            .ant-select {
+              &.ant-select-single {
+                .ant-select-selector {
+                  height: 34px;
+                  border-radius: 4px;
+                  padding: 0 10px;
+                  font-weight: normal;
+                  font-size: 12px;
+
+                  .ant-select-selection-search-input {
+                    height: 32px;
+                  }
+
+                  .ant-select-selection-placeholder {
+                    color: rgba(var(--gray-400));
+                  }
+
+                  .ant-select-selection-placeholder,
+                  .ant-select-selection-item {
+                    line-height: 32px;
+                  }
+                }
+              }
+            }
+            .ant-picker {
+              height: 34px;
+              border-radius: 4px;
+              font-size: 12px;
+              padding: 0 10px;
+
+              .ant-picker-input {
+                & > input {
+                  font-size: 12px;
+                  font-weight: 400;
+                }
+
+                .ant-picker-suffix {
+                  width: 16px;
+                  height: 16px;
+                  background-size: 15px;
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
+
+        &:first-child {
+          .ant-table-cell {
+            &:not(.action-head) {
+              border-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          padding: 12px 15px;
+          @include mixin.font(12, 600, 16);
+          color: rgb(var(--gray-600));
+
+          &:last-child {
+            border-right: 0;
+          }
+
+          &.truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &.line-2 {
+            }
+          }
+
+          .ant-tag {
+            min-width: 85px;
+          }
+
+          @include mixin.media-max(lg) {
+            padding: 8px;
+          }
+
+          &.checkbox-colbody {
+            text-align: center;
+          }
+
+          // Form elements in Table Body
+          .ant-form-item {
+            margin: 0;
+          }
+
+          .ant-input {
+            @include mixin.input-style(34px, 8px 10px, 8px, 14px);
+            font-weight: normal;
+
+            &:hover,
+            &:focus {
+              border-color: rgb(var(--primary-color));
+            }
+          }
+        }
+
+        &.highlight {
+          .ant-table-cell {
+            background-color: rgb(var(--gray-50));
+          }
+        }
+      }
+    }
+  }
+
+  // Scrollable Table
+  .ant-table-container {
+    display: flex;
+    flex-direction: column;
+
+    .ant-table-body {
+      max-height: inherit !important;
+      flex: 1 1 auto;
+      min-height: 200px;
+      @include mixin.media-max(sm){
+        min-height: 180px;
+      }
+      // overflow-y: auto !important;
+    }
+  }
+
+  // Bordered Table ==========
+  &.ant-table-bordered {
+    .ant-table-content,
+    .ant-table-container {
+      .ant-table-thead {
+        .ant-table-row {
+          .ant-table-cell {
+            border-color: rgb(var(--border));
+          }
+        }
+      }
+      .ant-table-tbody {
+        .ant-table-row {
+          .ant-table-cell {
+            border-color: rgb(var(--border));
+          }
+
+          &:hover {
+            .ant-table-cell {
+              background-color: rgb(var(--gray-50));
+            }
+          }
+        }
+      }
+    }
+
+    .ant-table-footer {
+      border-top: 1px solid rgb(var(--border));
+    }
+  }
+
+  // Table Footer Left ==========
+  .ant-table-footer {
+    padding: 10px;
+    background-color: rgb(var(--white));
+    border-top: 1px solid rgb(var(--border));
+    border-bottom: 0;
+    border-left: 0;
+    min-height: 60px;
+    display: flex;
+
+    @include mixin.media-max(md) {
+      padding-bottom: 60px;
+      justify-content: center;
+    }
+
+    .tfooter-left {
+      @include mixin.flex(center, 30px, wrap);
+
+      span {
+        font-size: 14px;
+        @include mixin.media-max(md) {
+          font-size: 12px;
+        }
+      }
+
+      .tfooter-options {
+        @include mixin.flex(center, 8px, wrap);
+
+        .ant-select {
+          width: auto;
+          .ant-select-selector {
+            width: 70px;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .tfooter-goto {
+        @include mixin.flex(center, 8px, wrap);
+
+        .ant-input {
+          width: 46px;
+          text-align: center;
+        }
+      }
+
+      @include mixin.media-max(md) {
+        justify-content: center;
+        gap: 12px;
+      }
+    }
+  }
+}
+
+// ========== Table Pagination ==========
+.ant-pagination {
+  &.ant-table-pagination {
+    margin: 0;
+    padding: 10px;
+    margin: 0;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    @include mixin.media-max(md) {
+      left: 0;
+      justify-content: center;
+      bottom: 0;
+    }
+  }
+}
+
+// ========== Table Action Buttons ==========
+.table-actions {
+  display: flex;
+  gap: 10px;
+  min-width: 80px;
+  justify-content: center;
+
+  &.count-4 {
+    min-width: 120px;
+  }
+
+  &.count-2 {
+    width: 90px;
+  }
+
+  &.count-1 {
+    min-width: 60px;
+  }
+
+  .ant-btn {
+    padding: 0;
+    height: 18px;
+    width: 18px;
+    border: 0;
+    border-radius: 3px;
+    color: rgb(var(--gray-600));
+    background: transparent;
+
+    &:hover {
+      color: rgb(var(--primary-color));
+      background-color: transparent;
+    }
+  }
+}
+
+// ========== Table Basic ==========
+.table-basic {
+  .ant-table {
+    .ant-table-content {
+      .ant-table-thead {
+        .ant-table-row {
+          .ant-table-cell {
+            padding: 10px 15px;
+
+            @include mixin.media-max(lg) {
+              padding: 8px 8px;
+            }
+          }
+        }
+      }
+      .ant-table-tbody {
+        .ant-table-row {
+          .ant-table-cell {
+            padding: 10px 15px;
+          }
+        }
+      }
+    }
+  }
+
+  &.table-sm {
+    .ant-table {
+      .ant-table-content {
+        .ant-table-tbody {
+          .ant-table-row {
+            .ant-table-cell {
+              padding: 5px 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.table-scada {
+    .ant-table {
+      .ant-table-content {
+        .ant-table-thead {
+          .ant-table-row {
+            .ant-table-cell {
+              padding: 10px;
+              border-bottom: 1px solid rgb(var(--border));
+              background-color: rgb(var(--gray-50));
+            }
+          }
+        }
+        .ant-table-tbody {
+          .ant-table-row {
+            .ant-table-cell {
+              color: rgb(var(--dark-title));
+              &:first-child {
+                background-color: rgb(var(--primary-bg));
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.table-light {
+    .ant-table {
+      .ant-table-content {
+        .ant-table-thead {
+          .ant-table-row {
+            .ant-table-cell {
+              background-color: rgb(var(--white));
+              border-bottom: 1px solid rgb(var(--border));
+              padding: 10px 15px;
+            }
+          }
+        }
+        .ant-table-tbody {
+          .ant-table-row {
+            .ant-table-cell {
+              padding: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.hidden-header {
+    .ant-table-thead {
+      display: none;
+    }
+  }
+}
+
+// Colgroup Classes
+.col-sm {
+  width: 110px;
+}
+
+// Cell Width
+.cell-sm {
+  min-width: 120px;
+}
+
+// to ellipse after 2 lines wrap text into p tag and add below class for secondary text fields
+.cell-text {
+  display: -webkit-box;
+  max-width: 100%;
+  white-space: normal;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

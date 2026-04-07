@@ -1,0 +1,78 @@
+<div nz-flex [nzVertical]="true" [nzGap]="25">
+  <div class="title-26 fw-700">Login</div>
+  <div class="title-16 fw-600">
+    Enter your Username and Password to access RBAC.
+  </div>
+
+  <form
+    nz-form
+    class="login-form"
+    [nzLayout]="vertical"
+    (ngSubmit)="submitForm()"
+    [formGroup]="form">
+    <nz-form-item class="margin-md">
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="strLoginId" nzRequired>
+        Username
+      </nz-form-label>
+      <nz-form-control
+        nzErrorTip="Please input your username!"
+        [nzErrorTip]="usernameErrorTpl"
+        [nzValidateStatus]="isInvalidField('strLoginId')">
+        <input
+          type="text"
+          id="strLoginId"
+          nz-input
+          formControlName="strLoginId"
+          placeholder="Enter your Username" />
+        <ng-template #usernameErrorTpl let-control>
+          <ng-container>
+            {{ getControlErrorMessage('strLoginId', 'User Name') }}
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="margin-md">
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="strPassword" nzRequired>
+        Password
+      </nz-form-label>
+      <nz-form-control
+        [nzErrorTip]="passwordErrorTpl"
+        [nzValidateStatus]="isInvalidField('strPassword')">
+        <nz-input-group [nzSuffix]="suffixPassword">
+          <input
+            id="strPassword"
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            formControlName="strPassword"
+            placeholder="Enter your password" />
+        </nz-input-group>
+        <ng-template #passwordErrorTpl let-control>
+          <ng-container>
+            {{ getControlErrorMessage('strPassword', 'Password') }}
+          </ng-container>
+        </ng-template>
+        <ng-template #suffixPassword>
+          <span
+            nz-icon
+            tabindex="0"
+            role="button"
+            aria-label="Toggle password visibility"
+            class="ant-input-password-icon"
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+            (keydown.enter)="passwordVisible = !passwordVisible"
+            (keydown.space)="passwordVisible = !passwordVisible"></span>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <button
+      nz-button
+      [nzType]="'primary'"
+      [nzBlock]="true"
+      [nzLoading]="loading"
+      nzSize="large"
+      [disabled]="form.invalid">
+      Login
+    </button>
+  </form>
+</div>

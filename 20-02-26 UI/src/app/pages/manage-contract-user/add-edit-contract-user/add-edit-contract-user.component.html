@@ -1,0 +1,245 @@
+<nz-spin [nzSpinning]="loading">
+  <form nz-form [formGroup]="form" nzLayout="vertical">
+    <div nz-row [nzGutter]="[16, 16]">
+
+      <!-- Employee Code -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="EmpCode" [nzRequired]="true">Employee Code</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="EmpCode" formControlName="EmpCode" placeholder="Enter Employee Code" />
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <!-- Optional Name -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="Name">Name (Optional)</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="Name" formControlName="Name" placeholder="Enter Name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <!-- Employee Code -->
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <!-- <nz-form-item>
+          <nz-form-label nzFor="EmpCode" [nzRequired]="true">Employee Code</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="EmpCode" formControlName="EmpCode" placeholder="Enter Employee Code" />
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Employee Code</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <div style="display: flex; gap: 8px;">
+              <input nz-input formControlName="employeeCode" [disabled]="true" style="flex: 1;" />
+              <button nz-button  nzType="default" *ngIf="displayMode === mode.ADD" (click)="syncUserData()">Sync</button>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Optional Name -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="Name">Name (Optional)</nz-form-label>
+          <nz-form-control>
+            <div style="display: flex; gap: 8px;">
+              <input nz-input id="Name" formControlName="Name" placeholder="Enter Name" style="flex: 1;" />
+              <button nz-button nzType="default" [nzLoading]="loadingSync" (click)="syncUserData()">
+                Sync
+              </button>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <!-- First Name -->
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="firstName">First Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="firstName" formControlName="firstName" [disabled]="true" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Last Name -->
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="lastName">Last Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="lastName" formControlName="lastName" [disabled]="true" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- User Role -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true" nzFor="userRole">User Role</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="userRole" nzPlaceHolder="Select Role">
+              <nz-option *ngFor="let role of userRoleList" [nzValue]="role.id" [nzLabel]="role.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="userRole" nzRequired>User Role</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please select a user role">
+          <nz-select formControlName="userRole" nzPlaceHolder="Select Role">
+            <nz-option *ngFor="let role of roleList" [nzValue]="role.id" [nzLabel]="role.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="departmentIds" nzRequired>Department</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please select at least one department">
+          <nz-select formControlName="departmentIds" nzMode="multiple" nzPlaceHolder="Select Departments">
+            <nz-option *ngFor="let dept of departmentList" [nzValue]="dept.id" [nzLabel]="dept.name">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Departments -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true" nzFor="departmentIds">Departments</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="departmentIds" nzMode="multiple" nzPlaceHolder="Select Departments">
+              <nz-option *ngFor="let dept of departmentList" [nzValue]="dept.id" [nzLabel]="dept.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <!-- Employee Password -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="employeePassword">Password</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="employeePassword" formControlName="employeePassword" [disabled]="true" />
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <!-- Start Date -->
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="employeeStartDate" [nzRequired]="true">Start Date</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="employeeStartDate" nzFormat="yyyy-MM-dd"
+              style="width: 100%"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- End Date -->
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="employeeEndDate" [nzRequired]="true">End Date</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="employeeEndDate" nzFormat="yyyy-MM-dd"
+              style="width: 100%"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Is Temp Password -->
+      <!-- <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="isTempPassword">Is Temp Password</nz-form-label>
+          <nz-form-control>
+            <nz-switch formControlName="isTempPassword" nzDisabled nzCheckedChildren="Yes" nzUnCheckedChildren="No"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="isTempPassword">Is Temp Password</nz-form-label>
+          <nz-form-control>
+            <!-- <nz-switch [formControl]="form.get('isTempPassword')" nzCheckedChildren="Yes" nzUnCheckedChildren="No">
+            </nz-switch> -->
+            <!-- <nz-switch [formControl]="form.get('isTempPassword') as FormControl" nzCheckedChildren="Yes"
+              nzUnCheckedChildren="No">
+            </nz-switch> -->
+            <nz-switch [formControl]="isTempPasswordControl" nzCheckedChildren="Yes" nzUnCheckedChildren="No">
+            </nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <!-- Form Actions -->
+    <!-- <div class="form-actions mt-3">
+      <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+      <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="form.invalid" (click)="onSave()">
+        {{ isEditMode ? 'Update' : 'Save' }}
+      </button>
+    </div> -->
+    <!-- <div class="form-actions mt-3" style="display: flex; justify-content: flex-end; gap: 12px;">
+      <div class="button-row">
+        <button nz-button nzType="primary" [disabled]="form.invalid" (click)="onSave()">Save</button>
+        <button nz-button nzType="default" (click)="onReset()">Reset</button>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+      </div>
+    </div> -->
+
+    <!-- <pre>Form Valid: {{ form.valid }}</pre>
+    <pre>Form Status: {{ form.status }}</pre>
+    <pre>Form Errors: {{ form.errors | json }}</pre>
+    <pre>Form Value: {{ form.value | json }}</pre> -->
+
+    <ng-container *nzModalFooter>
+      <div class="m-footer-left">
+        <button nz-button class="btn-gray" (click)="handleCancel()">
+          Cancel
+        </button>
+        <button
+          nz-button
+          class="btn-sky-blue"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="resetForm()">
+          Reset
+        </button>
+        <!-- <button
+          nz-button
+          class="ant-btn-dangerous"
+          *ngIf="displayMode === mode.VIEW"
+          (click)="openConfirmModal()">
+          <svg-icon
+            src="assets/icon/icon-trash.svg"
+            class="icon s-16"></svg-icon>
+        </button> -->
+      </div>
+      <div class="m-footer-left">
+        <!-- update text as per modal  -->
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!isFormValueChange && displayMode === mode.EDIT"
+          [nzLoading]="loading"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="onSave()">
+          {{ displayMode === mode.ADD ? 'Save' : 'Update' }}
+        </button>
+        
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="form.invalid"
+          *ngIf="displayMode === mode.VIEW"
+          (click)="changeMode()">
+          Edit
+        </button>
+      </div>
+    </ng-container>
+
+  </form>
+</nz-spin>

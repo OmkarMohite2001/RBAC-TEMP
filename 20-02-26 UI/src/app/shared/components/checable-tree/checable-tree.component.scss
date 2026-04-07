@@ -1,0 +1,71 @@
+@use '../../../../styles/mixin.scss' as mixin;
+//table-grid
+.table-grid {
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) repeat(3, 132px);
+  @include mixin.media-max(md) {
+    grid-template-columns: minmax(300px, 1fr) repeat(3, 85px);
+  }
+  & > div {
+    &:not(:first-child) {
+      place-self: center;
+    }
+    
+  }
+  &-wrap {
+    overflow-x: auto;
+  }
+  &-container {
+    min-width: 750px;
+  }
+  &-header {
+    padding: 20px 0;
+    // for adjust expandable button
+    margin-left: 28px;
+    border-top: 1px solid rgb(var(--border));
+    border-bottom: 1px solid rgb(var(--border));
+    margin-bottom: 30px;
+  }
+}
+.ant-tree-treenode {
+  &:has(nz-tree-indent[ng-reflect-nz-tree-level='1']) {
+    .table-grid {
+      margin-left: -24px;
+      div {
+        &:first-child {
+          padding-left: 24px;
+        }
+      }
+    }
+  }
+  &:has(nz-tree-indent[ng-reflect-nz-tree-level='2']) {
+    .table-grid {
+      margin-left: -48px;
+      div {
+        &:first-child {
+          padding-left: 48px;
+        }
+      }
+    }
+  }
+  &:has(nz-tree-indent[ng-reflect-nz-tree-level='3']) {
+    .table-grid {
+      margin-left: -72px;
+      div {
+        &:first-child {
+          padding-left: 72px;
+        }
+      }
+    }
+  }
+  &:has(nz-tree-indent[ng-reflect-nz-tree-level='4']) {
+    .table-grid {
+      margin-left: -96px;
+      div {
+        &:first-child {
+          padding-left: 96px;
+        }
+      }
+    }
+  }
+}

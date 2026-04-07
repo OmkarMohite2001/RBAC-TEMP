@@ -1,0 +1,63 @@
+<ng-template #template1 let-notification>
+  <div class="ant-notification-notice-content notice-lg">
+    <div class="ant-notification-notice-with-icon">
+      <span class="ant-notification-notice-icon">
+        <svg-icon
+          src="assets/icon/icon-tick.svg"
+          class="icon s-32"></svg-icon>
+      </span>
+      <div class="ant-notification-notice-message">
+        {{ message }}
+      </div>
+      <div class="ant-notification-notice-btn">
+        <div nz-flex [nzGap]="10">
+          <button
+            nz-button
+            class="btn-gray"
+            (click)="closeNotification(notification)">
+            No
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="closeNotification(notification)">
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template2 let-notification>
+  <div class="ant-notification-notice-content">
+    <div class="ant-notification-notice-with-icon">
+      <span class="ant-notification-notice-icon">
+        <svg-icon
+          src="assets/icon/icon-tick.svg"
+          class="icon s-32"></svg-icon>
+      </span>
+      <div class="ant-notification-notice-message">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template3 let-notification>
+  <div class="ant-notification-notice-content">
+    <div class="ant-notification-notice-with-icon notice-warning">
+      <span class="ant-notification-notice-icon">
+        <svg-icon
+          src="assets/icon/icon-warning.svg"
+          class="icon s-32"></svg-icon>
+      </span>
+      <div class="ant-notification-notice-message">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+<button nz-button nzType="primary" (click)="createNotification()">
+  Open the notification box
+</button>

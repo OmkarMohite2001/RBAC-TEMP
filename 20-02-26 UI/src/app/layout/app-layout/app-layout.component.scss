@@ -1,0 +1,24 @@
+@use '../../../styles/mixin.scss' as mixin;
+
+.main-container {
+  min-height: 100vh;
+  background: rgb(var(--gray-50));
+  .main-layout {
+    margin-left: 220px;
+    background: transparent;
+
+    @include mixin.media-max(lg) {
+      margin-left: 0;
+    }
+
+    .main-content {
+      margin-top: 77px;
+      display: flex;
+      flex-direction: column;
+
+      @include mixin.media-max(lg) {
+        margin-top: 70px;
+      }
+    }
+  }
+}

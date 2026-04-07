@@ -1,0 +1,32 @@
+<div
+  class="widget-box"
+  nz-flex
+  [nzGap]="10"
+  [nzVertical]="true"
+  nzAlign="flex-start">
+  <div class="widget-box__top" nz-flex [nzGap]="20" nzJustify="space-between">
+    <div class="widget-box__text">
+      <h5 class="widget-box__title title-14">
+        {{ title }}
+      </h5>
+      <span class="widget-box__number title-20">{{ number }}</span>
+    </div>
+    <div nz-flex [nzAlign]="'start'" nzFlex="0 0 auto">
+      <div
+        [class]="iconClass"
+        class="widget-box__icon"
+        nz-flex
+        [nzAlign]="'center'"
+        [nzJustify]="'center'">
+        <svg-icon src="{{ svg }}" class="icon s-30"></svg-icon>
+      </div>
+    </div>
+  </div>
+  <a nz-button nzType="link">
+    View Details
+    <svg-icon
+      src="assets/icon/icon-arrow-next.svg"
+      class="icon s-14">
+    </svg-icon>
+  </a>
+</div>

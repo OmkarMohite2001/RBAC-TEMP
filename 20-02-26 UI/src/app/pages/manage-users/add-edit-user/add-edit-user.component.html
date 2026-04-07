@@ -1,0 +1,305 @@
+<nz-spin [nzSpinning]="loading$ | async">
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="form">
+    <div nz-row [nzGutter]="[20, 0]" nzAlign="bottom">
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="employeeId"
+            [nzRequired]="displayMode != mode.VIEW">
+            Employee ID
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="employeeIdErrorTpl"
+            [nzValidateStatus]="isInvalidField('employeeId')">
+            <input
+              id="employeeId"
+              type="number"
+              nz-input
+              formControlName="employeeId"
+              name="employeeId"
+              placeholder="Enter Employee ID" />
+            <ng-template #employeeIdErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('employeeId', 'Employee ID') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div
+        nz-col
+        [nzXs]="24"
+        [nzMd]="12"
+        [nzLg]="12"
+        *ngIf="displayMode !== mode.VIEW">
+        <nz-form-item>
+          <button
+            type="button"
+            nz-button
+            [nzLoading]="loadingSync"
+            nzType="primary"
+            (click)="syncUserData()">
+            Sync Data
+          </button>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label nzFor="email" [nzRequired]="displayMode != mode.VIEW">
+            Email
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="emailErrorTpl"
+            [nzValidateStatus]="isInvalidField('email')">
+            <input
+              id="email"
+              type="email"
+              nz-input
+              name="email"
+              formControlName="email"
+              placeholder="Enter Email" />
+            <ng-template #emailErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('email', 'Email') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="firstName"
+            [nzRequired]="displayMode != mode.VIEW">
+            First Name
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="firstNameErrorTpl"
+            [nzValidateStatus]="isInvalidField('firstName')">
+            <input
+              id="firstName"
+              type="text"
+              nz-input
+              formControlName="firstName"
+              name="firstName"
+              placeholder="Enter First Name" />
+            <ng-template #firstNameErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('firstName', 'First Name') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="lastName"
+            [nzRequired]="displayMode != mode.VIEW">
+            Last Name
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="lastNameErrorTpl"
+            [nzValidateStatus]="isInvalidField('lastName')">
+            <input
+              id="lastName"
+              type="text"
+              nz-input
+              name="lastName"
+              formControlName="lastName"
+              placeholder="Enter Last Name" />
+            <ng-template #lastNameErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('lastName', 'Last Name') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="managerName"
+            [nzRequired]="displayMode != mode.VIEW">
+            Reporting Manager
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="managerNameErrorTpl"
+            [nzValidateStatus]="isInvalidField('managerName')">
+            <input
+              id="managerName"
+              type="text"
+              nz-input
+              formControlName="managerName"
+              name="reportingManager"
+              placeholder="Enter Reporting Manager" />
+            <ng-template #managerNameErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('managerName', 'Reporting Manager') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="managerEmail"
+            [nzRequired]="displayMode != mode.VIEW">
+            Reporting Manager Email
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="managerEmailErrorTpl"
+            [nzValidateStatus]="isInvalidField('managerEmail')">
+            <input
+              id="managerEmail"
+              type="email"
+              nz-input
+              name="reportingManagerEmail"
+              formControlName="managerEmail"
+              placeholder="Enter Reporting Manager Email" />
+            <ng-template #managerEmailErrorTpl let-control>
+              <ng-container>
+                {{
+                  getControlErrorMessage(
+                    'managerEmail',
+                    'Reporting Manager Email'
+                  )
+                }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="roleIds"
+            [nzRequired]="displayMode != mode.VIEW">
+            User Role
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="roleIdsErrorTpl"
+            [nzValidateStatus]="isInvalidField('roleIds')">
+            <nz-select
+              id="roleIds"
+              nzMode="multiple"
+              [nzPlaceHolder]="'Select'"
+              formControlName="roleIds">
+              <nz-option
+                *ngFor="let role of roleList"
+                [nzValue]="role.id"
+                [nzLabel]="role.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #roleIdsErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('roleIds', 'User Role') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="departmentIds"
+            [nzRequired]="displayMode != mode.VIEW">
+            Department
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="departmentIdsErrorTpl"
+            [nzValidateStatus]="isInvalidField('departmentIds')">
+            <nz-select
+              id="departmentIds"
+              nzMode="multiple"
+              [nzPlaceHolder]="'Select'"
+              formControlName="departmentIds">
+              <nz-option
+                *ngFor="let department of departmentList"
+                [nzValue]="department.id"
+                [nzLabel]="department.name"
+                [nzDisabled]="isDepartmentDisabled(department)">
+              </nz-option>
+            </nz-select>
+            <ng-template #departmentIdsErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('departmentIds', 'Department') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label
+            nzFor="isActive"
+            [nzRequired]="displayMode != mode.VIEW">
+            Select Status
+          </nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="isActiveErrorTpl"
+            [nzValidateStatus]="isInvalidField('isActive')">
+            <nz-radio-group
+              id="isActive"
+              nzName="selectStatus"
+              formControlName="isActive">
+              <div nz-flex nzAlign="center" nzWrap="wrap" [nzGap]="64">
+                <label nz-radio [nzValue]="true">Active</label>
+                <label nz-radio [nzValue]="false">In Active</label>
+              </div>
+            </nz-radio-group>
+            <ng-template #isActiveErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('isActive', 'Select Status') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <ng-container *nzModalFooter>
+      <div class="m-footer-left">
+        <button nz-button class="btn-gray" (click)="handleCancel()">
+          Cancel
+        </button>
+        <button
+          nz-button
+          class="btn-sky-blue"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="resetForm()">
+          Reset
+        </button>
+        <!-- <button
+          nz-button
+          class="ant-btn-dangerous"
+          *ngIf="displayMode === mode.VIEW"
+          (click)="openConfirmModal()">
+          <svg-icon
+            src="assets/icon/icon-trash.svg"
+            class="icon s-16"></svg-icon>
+        </button> -->
+      </div>
+      <div class="m-footer-left">
+        <!-- update text as per modal  -->
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!isFormValueChange && displayMode === mode.EDIT"
+          [nzLoading]="loading"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="submitForm()">
+          {{ displayMode === mode.ADD ? 'Save' : 'Update' }}
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="form.invalid"
+          *ngIf="displayMode === mode.VIEW"
+          (click)="changeMode()">
+          Edit
+        </button>
+      </div>
+    </ng-container>
+  </form>
+</nz-spin>

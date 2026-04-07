@@ -1,0 +1,53 @@
+@use '../mixin.scss';
+
+.ant-form {
+  label {
+    font-size: 16px;
+  }
+  .ant-form-item {
+    margin: 0 0 20px;
+
+    &.margin-md {
+      margin: 0 0 25px;
+    }
+
+    .ant-form-item-label {
+      width: 100%;
+      flex: 1 1 auto;
+      display: flex;
+      max-width: 100%;
+
+      label {
+        display: flex;
+        font-size: 16px;
+        line-height: 20px;
+        position: relative;
+        font-weight: 500;
+        gap: 4px;
+        color: rgb(var(--gray-800));
+
+        &.ant-form-item-required {
+          &::before {
+            color: rgb(var(--error-dark));
+            font-family: inherit;
+            margin: 0;
+            display: block;
+            order: 2;
+          }
+        }
+      }
+    }
+  }
+
+  &.ant-form-vertical {
+    .ant-form-item {
+      .ant-form-item-label {
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
+.form-col-title {
+  @include mixin.font(18, 700, 22);
+  color: rgb(var(--primary-color));
+}

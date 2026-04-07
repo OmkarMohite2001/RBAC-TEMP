@@ -1,0 +1,221 @@
+@use '../mixin.scss' as mixin;
+
+button {
+  &.ant-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 36px;
+    font-size: 16px;
+    line-height: normal;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 4px 20px;
+
+    // User Accessibility
+    &:focus-visible {
+      outline: 2px solid rgb(var(--black));
+    }
+  }
+
+  // ========== Primary ==========
+  &.ant-btn-primary {
+    color: rgb(var(--white));
+    background-color: rgb(var(--primary-color));
+    border-color: rgb(var(--primary-color));
+
+    &:focus,
+    &:hover {
+      border-color: rgb(var(--primary-color));
+      background: rgba(var(--primary-color), 0.75);
+    }
+
+    // Outline
+    &.ant-btn-background-ghost {
+      color: rgb(var(--primary-color));
+      border-color: rgb(var(--primary-color));
+      background-color: rgb(var(--white));
+
+      &:focus,
+      &:hover {
+        background: rgba(var(--primary-light));
+      }
+    }
+
+    // Danger
+    &.ant-btn-dangerous {
+      background-color: rgb(var(--error-dark));
+    }
+  }
+
+  // ========== Default ==========
+  &.ant-btn-default {
+    color: rgb(var(--gray-800));
+    background-color: rgb(var(--white));
+    border-color: rgb(var(--border));
+
+    &:focus,
+    &:hover {
+      color: rgb(var(--primary-color));
+      border-color: rgb(var(--primary-color));
+    }
+
+    // Danger
+    &.ant-btn-dangerous {
+      color: rgb(var(--error-dark));
+      background-color: rgb(var(--error-light));
+      border-color: rgb(var(--error-dark));
+
+      &:focus,
+      &:hover {
+        background-color: rgb(var(--error-light), 0.5);
+      }
+    }
+  }
+
+  // ========== Tersary ==========
+  &.btn-tersary {
+    color: rgb(var(--gray-800));
+    background-color: rgb(var(--gray-50));
+    border-color: rgb(var(--gray-50));
+
+    &:focus,
+    &:hover {
+      color: rgb(var(--gray-800));
+      border-color: rgb(var(--gray-800));
+    }
+  }
+
+  // ========== Btn Gray ==========
+  &.btn-gray {
+    color: rgb(var(--gray-800));
+    background-color: rgb(var(--border));
+    border-color: rgb(var(--border));
+
+    &:focus,
+    &:hover {
+      color: rgb(var(--gray-800));
+      background-color: rgb(var(--gray-200));
+      border-color: rgb(var(--gray-400));
+    }
+  }
+
+  // ========== Btn Sky Blue ==========
+  &.btn-sky-blue {
+    color: rgb(var(--primary-color));
+    background-color: rgb(var(--primary-light));
+    border-color: rgb(var(--primary-light));
+
+    &:focus,
+    &:hover {
+      color: rgb(var(--primary-color));
+      background-color: rgb(var(--white));
+      border-color: rgb(var(--primary-color));
+    }
+  }
+
+  // ========== Btn Success ==========
+  &.btn-success {
+    color: rgb(var(--white));
+    background-color: rgb(var(--success-dark));
+    border-color: rgb(var(--success-dark));
+
+    &:focus,
+    &:hover {
+      color: rgb(var(--white));
+      background-color: rgb(var(--success-dark), 0.7);
+      border-color: rgb(var(--success-dark), 0.7);
+    }
+  }
+
+  // ========== Btn Warning ==========
+  &.btn-warning {
+    color: rgb(var(--white));
+    background-color: rgb(var(--warning-dark));
+    border-color: rgb(var(--warning-dark));
+
+    &:focus,
+    &:hover {
+      color: rgb(var(--white));
+      background-color: rgb(var(--warning-dark), 0.7);
+      border-color: rgb(var(--warning-dark), 0.7);
+    }
+  }
+  // ========== Sizes ==========
+  &.ant-btn-sm {
+    padding: 4px 14px;
+    height: 30px;
+    border-radius: 4px;
+  }
+  &.ant-btn-lg {
+    height: 50px;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  &.ant-btn-34 {
+    height: 34px;
+  }
+  &.ant-btn-icon-34 {
+    height: 34px;
+    padding: 8px;
+    color: rgb(var(--gray-400));
+  }
+  &.btn-modal {
+    width: 136px;
+  }
+  &.btn-form {
+    padding: 0;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  // ========== Icons ==========
+  &.btn-icon {
+    padding: 5px 10px;
+    color: rgb(var(--gray-800));
+  }
+  &.btn-icon-bordered {
+    border: 1px solid rgb(var(--border));
+    background-color: rgb(var(--white));
+    padding: 10px;
+  }
+  &.btn-icon-box {
+    height: 40px;
+    padding: 5px 8px;
+    color: rgb(var(--gray-800));
+  }
+}
+
+// ========== Link Button ==========
+a {
+  &.ant-btn-link {
+    padding: 0;
+    height: 22px;
+    line-height: 22px;
+    border: 0;
+
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+    }
+
+    // User Accessibility
+    &:focus-visible {
+      outline: 2px solid rgb(var(--black));
+    }
+  }
+
+  &[nzType='link'] {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: rgb(var(--primary-color));
+    @include mixin.font(14, 600, 17);
+
+    // User Accessibility
+    &:focus-visible {
+      outline: 2px solid rgb(var(--black));
+    }
+  }
+}

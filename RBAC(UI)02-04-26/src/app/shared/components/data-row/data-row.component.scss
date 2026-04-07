@@ -1,0 +1,11 @@
+@use '../../../../styles/mixin.scss' as mixin;
+.data-row {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(var(--border));
+  h4.data-title {
+    @include mixin.font(18, 700, 22);
+    margin-bottom: 20px;
+    color: rgb(var(--dark-title));
+  }
+}

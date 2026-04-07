@@ -1,0 +1,15 @@
+@use '../../../../styles/mixin.scss' as mixin;
+.data-cell {
+  span {
+    display: block;
+  }
+  .cell-title {
+    @include mixin.font(16, 500, 19);
+    color: rgb(var(--dark-title));
+    margin-bottom: 5px;
+  }
+  .cell-text {
+    @include mixin.font(14, 600, 16);
+    color: rgb(var(--gray-600));
+  }
+}

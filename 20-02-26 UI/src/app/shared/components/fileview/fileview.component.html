@@ -1,0 +1,24 @@
+<div class="file-view" nz-flex [nzGap]="20" [nzAlign]="'center'">
+  <div class="file-view__icon">
+    <svg-icon src="assets/icon/icon-pdf.svg" class="icon"></svg-icon>
+  </div>
+  <div nz-flex [nzVertical]="true" [nzGap]="12">
+    <p class="title-12">{{ filename }}</p>
+    <a nz-button nzType="link">
+      <svg-icon
+        src="assets/icon/icon-eye.svg"
+        class="icon s-16"></svg-icon>
+      View</a
+    >
+  </div>
+  <div class="file-view__action" nz-flex [nzGap]="10">
+    <button nz-button class="btn-tersary btn-icon-bordered">
+      <svg-icon
+        src="assets/icon/icon-download.svg"
+        class="icon s-16"></svg-icon>
+    </button>
+    <button nz-button class="btn-tersary btn-icon-bordered">
+      <svg-icon src="assets/icon/icon-pencil.svg" class="icon s-16"></svg-icon>
+    </button>
+  </div>
+</div>

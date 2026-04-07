@@ -1,0 +1,125 @@
+<nz-spin [nzSpinning]="loading$ | async">
+  <form
+    nz-form
+    [nzLayout]="'vertical'"
+    (ngSubmit)="submitForm()"
+    [formGroup]="form">
+    <div nz-row [nzGutter]="[20, 0]" nzAlign="bottom">
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label nzFor="name" [nzRequired]="true"
+            >Role Name</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="nameErrorTpl"
+            [nzValidateStatus]="isInvalidField('name')">
+            <input
+              id="name"
+              type="text"
+              nz-input
+              formControlName="name"
+              placeholder="Enter Role" />
+            <ng-template #nameErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('name', 'Role Name') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label nzFor="description" [nzRequired]="true"
+            >Enter Description</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="descriptionErrorTpl"
+            [nzValidateStatus]="isInvalidField('description')">
+            <textarea
+              id="description"
+              formControlName="description"
+              nz-input
+              rows="4"
+              placeholder="Enter Description"></textarea>
+          </nz-form-control>
+          <ng-template #descriptionErrorTpl let-control>
+            <ng-container>
+              {{ getControlErrorMessage('description', 'Description') }}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <h3 class="form-sub-title mb-10">Application/Module List</h3>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label nzFor="applicationIds" [nzRequired]="true"
+            >Select Applications</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="applicationIdsErrorTpl"
+            [nzValidateStatus]="isInvalidField('applicationIds')">
+            <nz-select
+              [nzPlaceHolder]="'Select'"
+              id="applicationIds"
+              formControlName="applicationIds"
+              [nzMode]="'multiple'"
+              nzAllowClear
+              nzShowSearch>
+              <nz-option
+                *ngFor="let app of applicationOption"
+                [nzValue]="app.id"
+                [nzLabel]="app.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #applicationIdsErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('applicationIds', 'Applications') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label nzFor="isActive" [nzRequired]="true"
+            >Select Status</nz-form-label
+          >
+          <nz-form-control
+            [nzErrorTip]="isActiveErrorTpl"
+            [nzValidateStatus]="isInvalidField('isActive')">
+            <nz-radio-group id="isActive" formControlName="isActive">
+              <div nz-flex nzAlign="center" nzWrap="wrap" [nzGap]="64">
+                <span nz-radio [nzValue]="true">Active</span>
+                <span nz-radio [nzValue]="false">In Active</span>
+              </div>
+            </nz-radio-group>
+            <ng-template #isActiveErrorTpl let-control>
+              <ng-container>
+                {{ getControlErrorMessage('isActive', 'Status') }}
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <ng-container *nzModalFooter>
+      <div class="m-footer-left">
+        <button nz-button class="btn-gray" (click)="handleCancel()">
+          Cancel
+        </button>
+      </div>
+      <div class="m-footer-left">
+        <!-- update text as per modal  -->
+        <button
+          nz-button
+          nzType="primary"
+          [nzLoading]="loading"
+          (click)="submitForm()">
+          {{ 'Save' }}
+        </button>
+      </div>
+    </ng-container>
+  </form>
+</nz-spin>

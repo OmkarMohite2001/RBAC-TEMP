@@ -1,0 +1,61 @@
+@use './../mixin.scss' as mixin;
+.ant-collapse {
+  border: none;
+  background-color: transparent;
+  color: rgb(var(--dark-title));
+  @include mixin.font(14, 700, 17);
+  &.ant-collapse-icon-position-end {
+    & > .ant-collapse-item {
+      & > .ant-collapse-header {
+        position: relative;
+        padding: 18px;
+      }
+    }
+  }
+  & > .ant-collapse-item {
+    border: 1px solid rgb(var(--border));
+    border-radius: 4px;
+    &.ant-collapse-item-active {
+      & > .ant-collapse-header {
+        color: rgb(var(--primary-color));
+        div {
+          &:not(.ant-collapse-extra) {
+            &:has(.icon) {
+              transform: rotate(180deg);
+              color: rgb(var(--primary-color));
+            }
+          }
+        }
+      }
+    }
+    & > .ant-collapse-header {
+      justify-content: space-between;
+      align-items: center;
+      color: rgb(var(--dark-title));
+      line-height: 17px;
+      transition: color 0.3s ease-in-out;
+      div {
+        &:not(.ant-collapse-extra) {
+          &:has(.icon) {
+            order: 2;
+            margin-left: 10px;
+            color: rgb(var(--gray-400));
+            transition: transform 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    &:last-child {
+      border-radius: 4px;
+    }
+    .ant-collapse-content {
+      border-top: none;
+      .ant-collapse-content-box {
+        padding: 10px 20px 20px 20px;
+      }
+    }
+  }
+}

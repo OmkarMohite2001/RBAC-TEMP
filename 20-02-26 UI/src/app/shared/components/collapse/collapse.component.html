@@ -1,0 +1,14 @@
+<nz-collapse nzExpandIconPosition="end">
+    <ng-template #customIconTpl let-active="active" class="collapse-icon">
+      <svg-icon src="assets/icon/collapse-icon.svg" class="icon s-18"></svg-icon>
+    </ng-template>
+  
+    <ng-container *ngFor="let panel of panels">
+      <nz-collapse-panel [nzExpandedIcon]="customIconTpl" [nzHeader]="panel.header">
+        <ng-container *ngIf="panel.content">
+          <ng-container *ngComponentOutlet="panel.content"></ng-container>
+        </ng-container>
+      </nz-collapse-panel>
+    </ng-container>
+  </nz-collapse>
+  

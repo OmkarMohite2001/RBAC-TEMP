@@ -1,0 +1,158 @@
+@use './reset.scss';
+@use './font.scss';
+@use './theme/variables.css';
+@use './mixin.scss' as mixin;
+@use './typography';
+@use 'components' as comp;
+ //@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+// Figma Screens: https://www.figma.com/design/UxfyHbnFyBF0Y2B8zaQHkg/KBL---Master-FIle?node-id=37-178&t=j4NtbLdXHqvKiDR8-1
+// Figma Components: https://www.figma.com/design/f6EIun5qQQzD4DuKzLvu4K/KBL---Design-Library?node-id=2003-17014&t=XL5jZKHCTQrEk3G8-1
+
+html,
+body {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: 'Lato', serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+// Spacing Classes ==========
+@include mixin.generate-spacing(margin, m, mixin.$breakpoints);
+@include mixin.generate-spacing(padding, p, mixin.$breakpoints);
+
+// Icon Classes ==========
+.icon {
+  @include mixin.icon(14);
+  @include mixin.icon(16);
+  @include mixin.icon(18);
+  @include mixin.icon(20);
+  @include mixin.icon(24);
+  @include mixin.icon(30);
+  @include mixin.icon(32);
+  @include mixin.icon(54);
+}
+
+// Text Align Classes ==========
+@include mixin.text-align(center);
+@include mixin.text-align(left);
+@include mixin.text-align(right);
+
+// Page Layouts ==========
+.entry-page {
+  padding: 20px 30px;
+
+  @include mixin.media-max(lg) {
+    padding: 20px;
+  }
+}
+
+.list-page {
+  padding: 20px 30px;
+  &.bg-white {
+    background-color: rgb(var(--white));
+    min-height: calc(100vh - 77px);
+    overflow-y: auto;
+    @include mixin.media-max(lg) {
+      min-height: calc(100vh - 70px);
+    }
+  }
+
+  &_content {
+    padding: 20px 30px;
+    border-radius: 20px;
+    border: 1px solid rgb(var(--border));
+    @include mixin.media-max(lg) {
+      padding: 20px;
+    }
+    &--header {
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgb(var(--primary-color));
+      h2 {
+        @include mixin.font(24, 700, 29);
+        color: rgb(var(--dark-title));
+      }
+    }
+    &--body {
+      height: calc(100vh - 290px);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+  @include mixin.media-max(lg) {
+    padding: 20px;
+  }
+}
+
+.dashboard-page {
+  padding: 30px 30px;
+
+  @include mixin.media-max(lg) {
+    padding: 20px;
+  }
+}
+
+// Scrollbar ==========
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--gray-500));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(var(--gray-700));
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(var(--gray-300), 0.3);
+  border-radius: 4px;
+}
+
+// Utilities ==========
+.d-flex {
+  display: flex;
+
+  &.vertical {
+    flex-direction: column;
+  }
+}
+
+// Under Development ==========
+.under-development {
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgb(var(--white));
+  box-shadow: 0 2px 16px 0 rgb(var(--black), 0.06);
+  width: 500px;
+  max-width: 100%;
+  margin: 10% auto;
+  h4 {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(var(--warning-dark));
+  }
+  p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+//General Form Typography
+.form-sub-title {
+  @include mixin.font(18, 700, 22);
+}
+.form-text-error {
+  @include mixin.font(16, 700, 19);
+  color: rgb(var(--error-dark));
+}

@@ -1,0 +1,48 @@
+<div class="list-page bg-white">
+  <nz-breadcrumb class="mb-20" [nzSeparator]="iconTemplate">
+    <nz-breadcrumb-item>
+      <svg-icon src="assets/icon/icon-home.svg" class="icon s-20"></svg-icon>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Pump Testing Software Module List</nz-breadcrumb-item>
+    <ng-template #iconTemplate>
+      <span>
+        <svg-icon
+          src="assets/icon/icon-breadcrumb-sep.svg"
+          class="icon s-16"></svg-icon
+      ></span>
+    </ng-template>
+  </nz-breadcrumb>
+  <div class="list-page_content">
+    <div class="list-page_content--header">
+      <h2>Pump Testing Software</h2>
+    </div>
+    <div class="list-page_content--body">
+      <nz-tree
+        [nzData]="nodes"
+        nzCheckable
+        nzShowLine
+        table
+        [nzExpandedIcon]="switcherTpl">
+        <ng-template #switcherTpl let-node>
+          <ng-container *ngIf="!isLeafNode(node)">
+            <ng-container *ngIf="node.isExpanded; else collapsed">
+              <svg-icon
+                class="icon s-18"
+                src="assets/icon/icon-collapse.svg"></svg-icon>
+            </ng-container>
+            <ng-template #collapsed>
+              <svg-icon
+                class="icon s-18"
+                src="assets/icon/icon-expand.svg"></svg-icon>
+            </ng-template>
+          </ng-container>
+          <ng-template #leafNodeIcon>
+            <span style="visibility: hidden"></span>
+            <!-- Or your preferred leaf node representation -->
+          </ng-template>
+        </ng-template>
+      </nz-tree>
+      
+    </div>
+  </div>
+</div>

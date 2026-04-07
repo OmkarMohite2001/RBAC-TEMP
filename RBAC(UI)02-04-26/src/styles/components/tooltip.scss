@@ -1,0 +1,18 @@
+.ant-tooltip {
+    .ant-tooltip-content {
+      .ant-tooltip-arrow {
+        .ant-tooltip-arrow-content {
+          &:before {
+          }
+        }
+      }
+  
+      .ant-tooltip-inner {
+        padding: 3px 8px;
+        font-size: 12px;
+        line-height: 20px;
+        min-height: 26px;
+      }
+    }
+  }
+  

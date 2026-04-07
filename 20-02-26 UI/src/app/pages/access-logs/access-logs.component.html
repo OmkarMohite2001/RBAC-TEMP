@@ -1,0 +1,146 @@
+<div class="list-page bg-white">
+  <nz-page-header [nzGhost]="false">
+    <nz-page-header-title>Access Logs</nz-page-header-title>
+    <nz-page-header-extra>
+      <button nz-button class="btn-success">
+        <svg-icon src="assets/icon/download-icon.svg"></svg-icon>Export
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <!-- ===== Table List ===== -->
+  <nz-table
+    #filterTable
+    nzBordered
+    [nzData]="listOfData"
+    nzTableLayout="fixed"
+    [nzFooter]="tableFooter">
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          <th
+            [nzShowSort]="column.sortFn"
+            [nzSortFn]="true"
+            [nzColumnKey]="column.key"
+            [nzWidth]="column.width">
+            {{ column.name }}
+          </th>
+        }
+
+        <th class="action-head" rowSpan="2">Action</th>
+      </tr>
+      <tr class="filter-row">
+        <th *ngFor="let column of listOfColumns">
+          <ng-container *ngIf="column.filter">
+            <ng-container [ngSwitch]="column.filter.type">
+              <ng-container *ngSwitchCase="'text'">
+                <ng-container
+                  *ngTemplateOutlet="
+                    textFilterTemp;
+                    context: { $implicit: column }
+                  "></ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'dropdown'">
+                <ng-container
+                  *ngTemplateOutlet="
+                    dropdownFilterTemp;
+                    context: { $implicit: column }
+                  "></ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'date'">
+                <ng-container
+                  *ngTemplateOutlet="
+                    dateFilterTemp;
+                    context: { $implicit: column }
+                  "></ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of filterTable.data; track data) {
+        <tr>
+          <td>{{ data.employeeId }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.userRole }}</td>
+          <td>{{ data.application }}</td>
+          <td>{{ data.module }}</td>
+
+          <td>
+            <div nz-flex [nzVertical]="true">
+              <span class="title-12">
+                {{ data.updatedOn | date: 'dd/MM/yyyy hh:mm a' }}
+              </span>
+              <!-- <span class="title-12">
+                      {{ getTimePart(data.updatedOn) }}
+                    </span> -->
+            </div>
+          </td>
+          <td><nz-tag nzColor="green">Update</nz-tag></td>
+
+          <!-- Table Action Cell -->
+          <td>
+            <div class="table-actions">
+              <span nz-tooltip nzTooltipTitle="View">
+                <button nz-button>
+                  <svg-icon src="assets/icon/table/eye-fill.svg"></svg-icon>
+                </button>
+              </span>
+              <!-- <span nz-tooltip nzTooltipTitle="Edit">
+                <button nz-button>
+                  <svg-icon src="assets/icon/table/pen-fill.svg"></svg-icon>
+                </button>
+              </span> -->
+              <!-- <span nz-tooltip nzTooltipTitle="Delete">
+                    <button nz-button (click)="showModal2()">
+                      <svg-icon src="assets/icon/table/delete-fill.svg"></svg-icon>
+                    </button>
+                  </span> -->
+              <!-- <span nz-tooltip nzTooltipTitle="Restore">
+                      <button nz-button>
+                        <svg-icon
+                          src="assets/icon/table/restart-icon.svg"></svg-icon>
+                      </button>
+                    </span> -->
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+
+    <!-- Custom Table Footer -->
+    <ng-template #tableFooter>
+      <!-- <div class="tfooter-left">
+              <div class="tfooter-options">
+                <span>Items per page:</span>
+                <nz-select nzAllowClear nzSize="small">
+                  <nz-option nzLabel="10" nzValue="10"></nz-option>
+                  <nz-option nzLabel="20" nzValue="20"></nz-option>
+                  <nz-option nzLabel="30" nzValue="30"></nz-option>
+                </nz-select>
+              </div>
+              <div class="tfooter-goto">
+                <span>Go to</span>
+                <input nz-input type="number" nzSize="small" value="1" />
+                <span>page</span>
+              </div>
+            </div> -->
+      <app-table-footer [page]="1"></app-table-footer>
+    </ng-template>
+
+    <ng-template #textFilterTemp let-column>
+      <input type="text" nz-input placeholder="Search" />
+    </ng-template>
+    <ng-template #dropdownFilterTemp let-column>
+      <nz-select nzAllowClear nzPlaceHolder="Select">
+        <nz-option nzLabel="active" nzValue="Active"></nz-option>
+        <nz-option nzLabel="inactive" nzValue="Inactive"></nz-option>
+      </nz-select>
+    </ng-template>
+    <ng-template #dateFilterTemp let-column>
+      <nz-date-picker nzPlaceHolder="Select Date"></nz-date-picker>
+    </ng-template>
+  </nz-table>
+</div>

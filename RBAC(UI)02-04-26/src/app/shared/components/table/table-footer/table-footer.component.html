@@ -1,0 +1,26 @@
+<div class="tfooter-left">
+  <div class="tfooter-options">
+    <span>Items per page:</span>
+    <nz-select
+      nzSize="small"
+      [(ngModel)]="pageSize"
+      (ngModelChange)="changeSize()">
+      <nz-option
+        [nzLabel]="option"
+        [nzValue]="option"
+        *ngFor="let option of sizeOptions"></nz-option>
+    </nz-select>
+  </div>
+  <div class="tfooter-goto">
+    <span>Go to</span>
+    <input
+      nz-input
+      type="number"
+      nzSize="small"
+      [min]="1"
+      [max]="totalPages"
+      [(ngModel)]="pageNo"
+      (ngModelChange)="goTo()" />
+    <span>page</span>
+  </div>
+</div>

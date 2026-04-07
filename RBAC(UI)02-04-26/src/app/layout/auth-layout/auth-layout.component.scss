@@ -1,0 +1,97 @@
+@use '../../../styles/mixin' as mixin;
+
+.auth-layout {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(var(--brand-50));
+  background-image: url('./../../../assets/images/auth-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: bottom;
+  position: relative;
+  padding: 0px 10px;
+  overflow: auto;
+
+  .auth-inner {
+    padding: 76px 0 16%;
+
+    @include mixin.media-max(md) {
+      padding: 50px 0;
+    }
+  }
+
+  .auth-container {
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+    background: transparent;
+
+    @include mixin.media-min(md) {
+      max-width: 767px;
+    }
+  }
+}
+
+.auth-form {
+  background: rgb(var(--white));
+  border-radius: 30px;
+  display: flex;
+
+  @include mixin.media-max(md) {
+    flex-wrap: wrap;
+    border-radius: 16px;
+  }
+
+  .logo {
+    display: block;
+    max-height: 55px;
+    width: auto;
+    align-self: flex-start;
+  }
+
+  .auth-left {
+    flex: 0 0 300px;
+    padding: 30px 20px 30px 30px;
+    position: relative;
+
+    @include mixin.media-max(md) {
+      flex: 1 1 auto;
+      padding: 30px 20px 20px;
+      border-bottom: 1px solid rgba(var(--border));
+    }
+
+    @include mixin.media-min(md) {
+      &:after {
+        content: '';
+        position: absolute;
+        height: auto;
+        top: 30px;
+        bottom: 30px;
+        background: rgba(var(--border));
+        width: 1px;
+        right: 0;
+      }
+    }
+
+    .auth-content {
+      gap: 40px;
+
+      @include mixin.media-max(md) {
+        gap: 20px;
+
+        .title-20 {
+          @include mixin.font(16, 600, 22);
+        }
+      }
+    }
+  }
+
+  .auth-right {
+    flex: 1 1 auto;
+    padding: 30px 30px 30px 20px;
+
+    @include mixin.media-max(md) {
+      padding: 20px 20px 30px;
+    }
+  }
+}

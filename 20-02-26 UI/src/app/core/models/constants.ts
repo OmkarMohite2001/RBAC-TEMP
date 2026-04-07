@@ -1,0 +1,4 @@
+export const MASKS = {
+  POSITIVE_NUMBER: '0*',
+  POSITIVE_NUMBER_WITH_TWO_DECIMAL_PLACE:'separator.2'
+};

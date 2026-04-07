@@ -1,0 +1,90 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<nz-sider class="sidebar" [nzWidth]="220">
+  <div class="branding">
+    <!-- <img src="assets/images/kbl-logo.png" alt="logo" /> -->
+    <strong class="title-14">Kirloskar Brothers Limited</strong>
+    <span class="title-12">Established 1888</span>
+    <span class="title-12">A Kirloskar Group Company</span>
+
+    <button
+      nz-button
+      class="btn-tersary btn-icon btn-menu-close"
+      [nzSize]="'small'"
+      (click)="sidebarClose()">
+      <svg-icon src="assets/icon/close-circle.svg" class="icon s-20"></svg-icon>
+    </button>
+  </div>
+
+  <div class="sidebar-menu">
+    <ul nz-menu nzMode="inline" class="sidebar-menu">
+      <li
+        nz-menu-item
+        routerLink="/manage-users"
+        routerLinkActive="ant-menu-item-selected"
+        tabindex="0"
+        role="button"
+        aria-label="Manage Users">
+        <svg-icon src="assets/icon/sidebar/user.svg"></svg-icon>
+        <span>Manage Users</span>
+      </li>
+      <li *ngIf="isAllowApplication"
+        nz-menu-item
+        routerLink="/applications"
+        routerLinkActive="ant-menu-item-selected"
+        tabindex="0"
+        role="button"
+        aria-label="Manage Applications">
+        <svg-icon src="assets/icon/icon-file.svg"></svg-icon>
+        <span>Manage Applications</span>
+      </li>
+      <li
+        nz-menu-item
+        routerLink="/access-control"
+        routerLinkActive="ant-menu-item-selected"
+        tabindex="0"
+        role="button"
+        aria-label="Access Control">
+        <svg-icon src="assets/icon/icon-motor.svg"></svg-icon>
+        <span>Access Control</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sidebar-footer">
+    <div
+      class="user-dropdown-btn"
+      tabindex="0"
+      role="button"
+      aria-label="User Dropdown"
+      nz-dropdown
+      [nzDropdownMenu]="userMenu">
+      <nz-avatar
+        [nzSize]="40"
+        [nzText]="
+          (userData.firstName.charAt(0) || '') +
+          (userData.lastName.charAt(0) || '')
+        ">
+      </nz-avatar>
+      <div class="user-info">
+        <div class="user-name">
+          {{ userData.firstName + ' ' + userData.lastName }}
+        </div>
+      </div>
+
+      <svg-icon class="menubar-icon" src="assets/icon/menu-hor.svg"></svg-icon>
+    </div>
+
+    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li
+          nz-menu-item
+          tabindex="0"
+          role="button"
+          aria-label="User Dropdown"
+          (click)="logout()">
+          <button>Logout</button>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</nz-sider>

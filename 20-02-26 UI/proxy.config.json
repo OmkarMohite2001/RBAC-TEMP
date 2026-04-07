@@ -1,0 +1,11 @@
+{
+  "/rbac-api": {
+    "target": "https://uatintranet.kirloskarpumps.com/RoutCardUAT/API/api",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/rbac-api": ""
+    }
+  }
+}

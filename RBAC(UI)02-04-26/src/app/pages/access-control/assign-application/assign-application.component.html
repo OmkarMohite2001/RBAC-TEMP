@@ -1,0 +1,54 @@
+<form
+  nz-form
+  [nzLayout]="'vertical'"
+  (ngSubmit)="submitForm()"
+  [formGroup]="form">
+  <div nz-row [nzGutter]="[20, 0]" nzAlign="bottom">
+    <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24">
+      <nz-form-item>
+        <nz-form-label nzFor="applicationId" [nzRequired]="true"
+          >Assign New Application</nz-form-label
+        >
+        <nz-form-control
+          [nzErrorTip]="applicationIdsErrorTpl"
+          [nzValidateStatus]="isInvalidField('applicationId')">
+          <nz-select
+            [nzPlaceHolder]="'Select'"
+            id="applicationId"
+            formControlName="applicationId"
+            [nzMode]="'multiple'"
+            nzAllowClear
+            nzShowSearch>
+            <nz-option
+              *ngFor="let app of applicationOption"
+              [nzValue]="app.id"
+              [nzLabel]="app.name">
+            </nz-option>
+          </nz-select>
+          <ng-template #applicationIdsErrorTpl let-control>
+            <ng-container>
+              {{ getControlErrorMessage('applicationId', 'Applications') }}
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <ng-container *nzModalFooter>
+    <div class="m-footer-left">
+      <button nz-button class="btn-gray" (click)="handleCancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="m-footer-left">
+      <!-- update text as per modal  -->
+      <button
+        nz-button
+        nzType="primary"
+        [nzLoading]="loading"
+        (click)="submitForm()">
+        {{ 'Assign' }}
+      </button>
+    </div>
+  </ng-container>
+</form>

@@ -1,0 +1,938 @@
+  // syncUserData() {
+  //   const empId = this.value('employeeId');
+  //   if (!empId) return;
+
+  //   this.loadingSync = true;
+
+  //   this.userSrv
+  //     .getUserByEmployeeId(empId)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => (this.loadingSync = false))
+  //     )
+  //     .subscribe({
+  //       next: (response: any) => {
+  //         const result = response.result;
+  //         this.form.patchValue({
+  //           email: result.employeeCode ?? '',
+  //           firstName: result.firstName ?? '',
+  //           lastName: result.lastName ?? '',
+  //           managerName: result.managerName ?? '',
+  //           managerEmail: result.managerEmail ?? '',
+  //           roleIds: [result.userRole], // assuming userRole maps to role ID
+  //           // departmentIds: result.departmentIds.map((d: { departmentId: number }) => d.departmentId),
+  //           const departmentsArray = result.departmentIds.map((d: { departmentId: number, departmentName: string }) =>
+  //             this.fb.group({
+  //               departmentId: d.departmentId,
+  //               departmentName: d.departmentName,
+  //             })
+  //           );
+  //           this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+
+  //           isActive: !result.isDeleted,
+  //         });
+  //       },
+  //       error: () => {
+  //         this.notification.notify(
+  //           'error',
+  //           'Employee Code or Name not found or is invalid'
+  //         );
+  //       },
+  //     });
+  // }
+
+  // syncUserData() {
+  //   const empId = this.value('employeeId');
+  //   if (!empId) return;
+
+  //   this.loadingSync = true;
+
+  //   this.userSrv
+  //     .getUserByEmployeeId(empId)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => (this.loadingSync = false))
+  //     )
+  //     .subscribe({
+  //       next: (response: any) => {
+  //         const result = response.result;
+
+  //         // Set department form array
+  //         const departmentsArray = result.departmentIds.map((d: { departmentId: number; departmentName: string }) =>
+  //           this.fb.group({
+  //             departmentId: d.departmentId,
+  //             departmentName: d.departmentName,
+  //           })
+  //         );
+
+  //         // Patch values
+  //         this.form.patchValue({
+  //           email: result.employeeCode ?? '',
+  //           firstName: result.firstName ?? '',
+  //           lastName: result.lastName ?? '',
+  //           managerName: result.managerName ?? '',
+  //           managerEmail: result.managerEmail ?? '',
+  //           roleIds: [result.userRole],
+  //           isActive: !result.isDeleted
+  //         });
+
+  //         this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+  //       },
+  //       error: () => {
+  //         this.notification.notify('error', 'Employee Code or Name not found or is invalid');
+  //       },
+  //     });
+  // }
+
+  // syncUserData() {
+  //   const empCode = this.form.get('EmpCode')?.value?.trim();
+  //   const name = this.form.get('Name')?.value?.trim();
+
+  //   if (!empCode && !name) {
+  //     this.notification.notify('warning', 'Please enter Employee Code or Name to sync');
+  //     return;
+  //   }
+
+  //   this.loadingSync = true;
+
+  //   this.userSrv
+  //     .getUserByEmployeeId(empCode || name)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => (this.loadingSync = false))
+  //     )
+  //     .subscribe({
+  //       next: (response: any) => {
+  //         const result = response.result;
+
+  //         const departmentsArray = result.departmentIds.map((d: { departmentId: number; departmentName: string }) =>
+  //           this.fb.group({
+  //             departmentId: d.departmentId,
+  //             departmentName: d.departmentName,
+  //           })
+  //         );
+
+  //         this.form.patchValue({
+  //           firstName: result.firstName ?? '',
+  //           lastName: result.lastName ?? '',
+  //           userRole: result.userRole ?? '',
+  //           employeePassword: result.employeePassword ?? '',
+  //           employeeStartDate: new Date(result.employeeStartDate),
+  //           employeeEndDate: new Date(result.employeeEndDate),
+  //           isTempPassword: result.isTempPassword ?? false,
+  //         });
+
+  //         this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+  //       },
+  //       error: () => {
+  //         this.notification.notify('error', 'Employee Code or Name not found or invalid');
+  //       },
+  //     });
+  // }
+
+  //   syncUserData(): void {
+  //   const empCode = this.form.get('employeeCode')?.value?.trim(); // Adjusted control names
+  //   const name = this.form.get('firstName')?.value?.trim();       // Adjusted control names
+
+  //   if (!empCode && !name) {
+  //     this.notification.notify('warning', 'Please enter Employee Code or Name to sync');
+  //     return;
+  //   }
+
+  //   const payload = {
+  //     EmpCode: empCode || null,
+  //     Name: name || ''
+  //   };
+
+  //   this.loadingSync = true;
+
+  //   this.userSrv.syncContractEmployee(payload)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => (this.loadingSync = false))
+  //     )
+  //     .subscribe({
+  //       next: (res: any[]) => {
+  //         const result = res?.[0];
+
+  //         if (!result) {
+  //           this.notification.notify('info', 'No matching employee found');
+  //           return;
+  //         }
+
+  //         // Patch form values
+  //         this.form.patchValue({
+  //           employeeCode: result.employeeCode ?? '',
+  //           firstName: result.firstName ?? '',
+  //           lastName: result.lastName ?? '',
+  //           userRole: result.userRole ?? '',
+  //           employeePassword: result.employeePassword ?? '',
+  //           employeeStartDate: result.employeeStartDate ? new Date(result.employeeStartDate) : null,
+  //           employeeEndDate: result.employeeEndDate ? new Date(result.employeeEndDate) : null,
+  //           isTempPassword: result.isTempPassword ?? false,
+  //           isActive: result.isActive ?? true,
+  //           isContractEmployee: result.isContractEmployee ?? true
+  //         });
+
+  //         // Map departments
+  //         if (result.departments?.length > 0) {
+  //           const departmentsArray = result.departments.map((d: any) =>
+  //             this.fb.group({
+  //               departmentId: d.departmentId,
+  //               departmentName: d.departmentName,
+  //             })
+  //           );
+  //           this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+  //         }
+
+  //         this.notification.notify('success', 'Employee details synced successfully');
+  //       },
+  //       error: () => {
+  //         this.notification.notify('error', 'Failed to fetch employee details');
+  //       }
+  //     });
+  // }
+
+  // syncUserData(): void {
+  //   const empCode = this.form.get('EmpCode')?.value?.trim();
+  //   const name = this.form.get('Name')?.value?.trim();
+
+  //   if (!empCode && !name) {
+  //     this.notification.notify('warning', 'Please enter Employee Code or Name to sync');
+  //     return;
+  //   }
+
+  //   const payload = {
+  //     EmpCode: empCode || null,
+  //     Name: name || ''
+  //   };
+
+  //   this.loadingSync = true;
+
+  //   this.userSrv
+  //     .syncContractEmployee(payload)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => (this.loadingSync = false))
+  //     )
+  //     .subscribe({
+  //       next: (response) => {
+  //         const matchedUser = response.result?.[0];
+
+  //         if (!matchedUser) {
+  //           this.notification.notify('warning', 'No matching contract user found');
+  //           return;
+  //         }
+
+  //         // Map departments to FormArray
+  //         const departmentsArray = (matchedUser.departments || []).map((d) =>
+  //           this.fb.group({
+  //             departmentId: d.departmentId,
+  //             departmentName: d.departmentName
+  //           })
+  //         );
+
+  //         this.form.patchValue({
+  //           EmpCode: matchedUser.employeeCode || '',
+  //           firstName: matchedUser.firstName || '',
+  //           lastName: matchedUser.lastName || '',
+  //           userRole: matchedUser.userRole || '',
+  //           employeePassword: matchedUser.employeePassword || '',
+  //           employeeStartDate: matchedUser.employeeStartDate ? new Date(matchedUser.employeeStartDate) : '',
+  //           employeeEndDate: matchedUser.employeeEndDate ? new Date(matchedUser.employeeEndDate) : '',
+  //           isTempPassword: matchedUser.isTempPassword ?? false
+  //         });
+
+  //         this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+  //         this.notification.notify('success', 'Contract employee data synced successfully');
+  //       },
+  //       error: () => {
+  //         this.notification.notify('error', 'Failed to sync contract user data');
+  //       }
+  //     });
+  // }
+
+  // Working Code
+
+  // syncUserData(): void {
+  //   const empCode = this.form.get('employeeCode')?.value;
+  //   const name = this.form.get('firstName')?.value;
+
+  //   const payload = {
+  //     EmpCode: empCode ? empCode.trim() : null,
+  //     Name: name ? name.trim() : null
+  //   };
+
+  //   this.userSrv.syncContractEmployee(payload).subscribe({
+  //     next: (response: ApiResponse<ContractEmployee>) => {
+  //       const result = response.result;
+
+  //       if (!result) {
+  //         alert('No matching employee found');
+  //         return;
+  //       }
+
+  //       this.form.patchValue({
+  //         // employeeCode: result.employeeCode,
+  //         // firstName: result.firstName,
+  //         // lastName: result.lastName,
+  //         // userRole: result.userRole,
+  //         // employeeStartDate: result.employeeStartDate,
+  //         // employeeEndDate: result.employeeEndDate,
+  //         // employeePassword: result.employeePassword,
+  //         // isTempPassword: result.isTempPassword
+
+  //           firstName: result.firstName,
+  //           lastName: result.lastName
+
+  //       });
+
+  //       const departmentsArray = result.departments?.map(d =>
+  //         this.fb.group({
+  //           departmentId: d.departmentId,
+  //           departmentName: d.departmentName
+  //         })
+  //       ) ?? [];
+
+  //       this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+  //       alert('Contract employee data synced');
+  //     },
+  //     error: () => alert('Failed to sync employee data')
+  //   });
+  // }
+
+  // syncUserData(): void {
+  //   const empCode = this.form.get('employeeCode')?.value;
+  //   const name = this.form.get('firstName')?.value;
+
+  //   const payload = {
+  //     EmpCode: empCode ? empCode.trim() : null,
+  //     Name: name ? name.trim() : null
+  //   };
+
+  //   this.userSrv.syncContractEmployee(payload).subscribe({
+  //     next: (response: ApiResponse<ContractEmployee[]>) => {
+  //       const resultArray = response.result;
+
+  //       if (!resultArray || resultArray.length === 0) {
+  //         alert('No matching employee found');
+  //         return;
+  //       }
+
+  //       const result = resultArray[0]; // use the first matched employee
+
+  //       this.form.patchValue({
+  //         firstName: result.firstName,
+  //         lastName: result.lastName
+  //       });
+
+  //       // Skip other fields since you want to leave them as-is
+  //       // But if required later, can uncomment & map as needed
+
+  //       // const departmentsArray = result.departments?.map(d =>
+  //       //   this.fb.group({
+  //       //     departmentId: d.departmentId,
+  //       //     departmentName: d.departmentName
+  //       //   })
+  //       // ) ?? [];
+  //       // this.form.setControl('departmentIds', this.fb.array(departmentsArray));
+
+  //       alert('Contract employee data synced');
+  //     },
+  //     error: () => alert('Failed to sync employee data')
+  //   });
+  // }
+
+  // syncUserData(): void {
+  //   const empCode = this.form.get('employeeCode')?.value;
+  //   const name = this.form.get('firstName')?.value;
+
+  //   const payload = {
+  //     EmpCode: empCode ? empCode.trim() : null,
+  //     Name: name ? name.trim() : null
+  //   };
+
+  //   this.userSrv.syncContractEmployee(payload).subscribe({
+  //     next: (response: ApiResponse<any[]>) => {
+  //       const resultArray = response.result;
+  //       console.log('Response Data', response);
+  //       if (!resultArray || resultArray.length === 0) {
+  //         alert('No matching employee found');
+  //         return;
+  //       }
+
+  //       const result = resultArray[0]; // Only use the first matched record
+
+  //       this.form.patchValue({
+  //         firstName: result.FirstName,
+  //         lastName: result.LastName
+  //       });
+
+  //       alert('Contract employee data synced');
+  //     },
+  //     error: () => alert('Failed to sync employee data')
+  //   });
+  // }
+
+  // syncUserData(): void {
+  //   const empCode = this.form.get('employeeCode')?.value;
+  //   const name = this.form.get('firstName')?.value;
+
+  //   const payload = {
+  //     EmpCode: empCode ? empCode.trim() : null,
+  //     Name: name ? name.trim() : null
+  //   };
+
+  //   this.userSrv.syncContractEmployee(payload).subscribe({
+  //     next: (response: any) => {
+  //       console.log("Response",response);
+  //       const resultArray = response?.result;
+  //       console.log('Response Data', resultArray);
+
+
+  //       if (!Array.isArray(resultArray) || resultArray.length === 0) {
+  //         alert('No matching employee found');
+  //         return;
+  //       }
+
+  //       const result = resultArray[0]; // first matched employee
+
+  //       this.form.patchValue({
+  //         firstName: result.FirstName || '',
+  //         lastName: result.LastName || ''
+  //       });
+
+  //       alert('Contract employee data synced');
+  //     },
+  //     error: () => alert('Failed to sync employee data')
+  //   });
+  // }
+
+
+   // onSave(): void {
+  //   if (this.form.invalid) {
+  //     alert('Please fill in all required fields correctly.');
+  //     return;
+  //   }
+
+  //   const formValue = this.form.value;
+
+  //   const payload = {
+  //     employeeId: this.editMode ? this.contractUserId : 0, // Assume editMode is managed
+  //     employeeCode: formValue.employeeCode,
+  //     firstName: formValue.firstName,
+  //     lastName: formValue.lastName,
+  //     userRole: formValue.userRole,
+  //     userDepartment: null, // optional
+  //     isContractEmployee: true,
+  //     employeePassword: 'KBL@123',
+  //     employeeStartDate: null,
+  //     employeeEndDate: null,
+  //     isTempPassword: true,
+  //     createdBy: this.loggedInUserId, // You must set this variable from session
+  //     departmentIds: this.mapDepartments(formValue.departmentIds)
+  //   };
+
+  //   this.userService
+  //     .addContractEmployee(payload)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (res) => {
+  //         this.toast.success('Contract Employee saved successfully');
+  //         this.router.navigate(['/manage-contract-user']);
+  //       },
+  //       error: () => {
+  //         this.toast.error('Failed to save Contract Employee');
+  //       }
+  //     });
+  // }
+
+
+    //   onCancel(): void {
+  //   this.dialogRef.close();
+  // }
+  // onCancel(): void {
+
+  //   this.router.navigate(['/manage-contract-user']);
+  // }
+  // getUserById(userId: number) {
+  //   this.loaderService.show();
+  //   this.userSrv
+  //     .getUserById(userId)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => this.loaderService.hide())
+  //     )
+  //     .subscribe({
+  //       next: response => {
+  //         // this.originalData = response.result;
+  //         // this.form.patchValue(response.result);
+  //       },
+  //       error: error => console.error(error),
+  //     });
+  // }
+
+  // getUserById(userId: number) {
+  //   this.loaderService.show();
+
+  //   const payload = {
+  //     EmpCode: userId.toString(),
+  //     Name: null
+  //   };
+
+  //   this.userSrv
+  //     .getUserById(payload)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => this.loaderService.hide())
+  //     )
+  //     .subscribe({
+  //       next: response => {
+  //         const user = response.result;
+  //         if (user) {
+  //           // this.originalData = user;
+  //           this.form.patchValue(user);
+  //         }
+  //       },
+  //       error: error => console.error(error),
+  //     });
+  // }
+
+  // getUserById(userId: number) {
+  //   this.loaderService.show();
+
+  //   const payload = {
+  //     EmpCode: userId.toString(), // send as string
+  //     Name: null
+  //   };
+
+  //   this.userSrv
+  //     .getUserById(payload)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => this.loaderService.hide())
+  //     )
+  //     .subscribe({
+  //       next: (response) => {
+  //         const emp = response.result;
+
+  //         // Transform ContractEmployee -> ContractUsersListRecord
+  //         const mappedData: ContractUsersListRecord = {
+  //           id: emp.employeeId, // assuming employeeId is unique
+  //           employeeId: emp.employeeId,
+  //           employeeCode: emp.employeeCode,
+  //           firstName: emp.firstName,
+  //           lastName: emp.lastName,
+  //           userRole: emp.userRole,
+  //           departmentIds: emp.departments?.map(dep => dep.id) || [],
+  //           employeePassword: emp.employeePassword,
+  //           employeeStartDate: emp.employeeStartDate,
+  //           employeeEndDate: emp.employeeEndDate,
+  //           isTempPassword: emp.isTempPassword,
+  //         };
+
+  //         this.originalData = mappedData;
+  //         this.form.patchValue(mappedData);
+  //         this.toast.success('User synced successfully');
+  //       },
+  //       error: (error) => {
+  //         console.error('Failed to sync user:', error);
+  //         this.toast.error('Failed to sync user');
+  //       }
+  //     });
+  // }
+
+  // getUserById(userId: number) {
+  //   this.loaderService.show();
+
+  //   const payload = {
+  //     EmpCode: userId.toString(),
+  //     Name: null
+  //   };
+
+  //   this.userSrv
+  //     .getUserById(payload)
+  //     .pipe(
+  //       takeUntil(this.destroy$),
+  //       finalize(() => this.loaderService.hide())
+  //     )
+  //     .subscribe({
+  //       next: (response) => {
+  //         const emp = response.result;
+
+  //         const mappedData: ContractUsersListRecord = {
+  //           id: 0,
+  //           employeeId: 0,
+  //           employeeCode: Number(emp.employeeCode), // or emp.employeeCode if string
+  //           firstName: emp.firstName,
+  //           lastName: emp.lastName,
+  //           userRole: emp.userRole,
+  //           departmentIds: emp.departments?.map(dep => String(dep.departmentId)) || [],
+  //           departments: emp.departments || [],
+  //           employeePassword: emp.employeePassword,
+  //           employeeStartDate: emp.employeeStartDate,
+  //           employeeEndDate: emp.employeeEndDate,
+  //           // isTempPassword: emp.isTempPassword ?? false,
+  //           isActive: true, // or emp.isActive if available from API
+  //           isContractEmployee: true, // or from emp.isContractEmployee
+  //         };
+  //         this.originalData = mappedData;
+  //         this.form.patchValue(mappedData);
+  //         console.log('Form after patchValue:', this.form.value);
+
+  //         // this.toast.success('User synced successfully');
+  //       },
+  //       error: (error) => {
+  //         console.error('Failed to sync user:', error);
+  //         // this.toast.error('Failed to sync user');
+  //       }
+  //     });
+  // }
+
+
+   // submitForm(): void {
+  //   if (this.form.invalid) {
+  //     this.form.markAllAsTouched();
+  //     this.form.markAsDirty();
+  //     return;
+  //   }
+
+  //   this.loading = true;
+  //   const payload = this.form.getRawValue();
+
+  //   const operation$ =
+  //     this.displayMode === this.mode.EDIT
+  //       ? this.userSrv.editUser(this.originalData.id, payload)
+  //       : this.userSrv.createUser(payload);
+
+  //   operation$
+  //     .pipe(
+  //       take(1),
+  //       takeUntil(this.destroy$),
+  //       finalize(() => (this.loading = false))
+  //     )
+  //     .subscribe({
+  //       next: () => this.handleSuccess(),
+  //       error: (err: ErrorResponse) => this.handleError(err),
+  //     });
+  // }
+
+
+  
+
+
+
+// import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+// import { FormComponent } from '../../../shared/components/form/form.component';
+// import { Mode } from '../../../core/enums/mode.enum';
+// import { UsersListRecord } from '../../manage-users/manage-users.interface';
+// import { finalize, Observable, Subject, take, takeUntil } from 'rxjs';
+// import { NZ_MODAL_DATA, NzModalModule, NzModalRef } from 'ng-zorro-antd/modal';
+// import {
+//   FormBuilder,
+//   FormControl,
+//   FormsModule,
+//   ReactiveFormsModule,
+//   Validators,
+// } from '@angular/forms';
+// import { ManageUsersService } from '../../manage-users/manage-users.service';
+// import { NzFormModule } from 'ng-zorro-antd/form';
+// import { NzRadioModule } from 'ng-zorro-antd/radio';
+// import {
+//   ApiResponse,
+//   ErrorResponse,
+//   paginatedResult,
+// } from '../../../core/models/api-request-response.interface';
+// import { NotificationService } from '../../../core/services/notification.service';
+// import { CommonModule } from '@angular/common';
+// import { AngularSvgIconModule } from 'angular-svg-icon';
+// import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+// import { NzSelectModule } from 'ng-zorro-antd/select';
+// import { NzSpinModule } from 'ng-zorro-antd/spin';
+// import { NzButtonModule } from 'ng-zorro-antd/button';
+// import { NzFlexModule } from 'ng-zorro-antd/flex';
+// import { NzGridModule } from 'ng-zorro-antd/grid';
+// import { NzInputModule } from 'ng-zorro-antd/input';
+// import { LoaderService } from '../../../core/services/loader.service';
+// import { Department } from '../../department/department.interface';
+// import { Role } from '../../access-control/access-control.interface';
+// import { AccessControlService } from '../../access-control/access-control.service';
+// import { DepartmentService } from '../../department/department.service';
+
+// @Component({
+//   selector: 'app-add-edit-contract-user',
+//   standalone: true,
+//   imports: [
+//     FormsModule,
+//     ReactiveFormsModule,
+//     NzFormModule,
+//     NzRadioModule,
+//     CommonModule,
+//     NzButtonModule,
+//     AngularSvgIconModule,
+//     NzDatePickerModule,
+//     NzSelectModule,
+//     NzSpinModule,
+//     NzFlexModule,
+//     NzGridModule,
+//     NzInputModule,
+//     NzModalModule,
+//     NzSpinModule,
+//   ],
+//   templateUrl: './add-edit-contract-user.component.html',
+//   styleUrl: './add-edit-contract-user.component.scss',
+// })
+// export class AddEditContractUserComponent
+//   extends FormComponent
+//   implements OnInit, OnDestroy
+// {
+//   mode = Mode;
+//   override originalData = {} as UsersListRecord;
+//   displayMode: Mode;
+//   loading: boolean = false;
+//   loadingSync: boolean = false;
+//   loading$: Observable<boolean>;
+//   isVisibleConfirmationModal = false;
+//   destroy$ = new Subject<void>();
+//   departmentList: Department[] = [];
+//   roleList: Role[] = [];
+//   allowedDepartments: number[] = [];
+//   defaultSelectedDepartments: number[] = [];
+
+//   constructor(
+//     private modalRef: NzModalRef,
+//     private fb: FormBuilder,
+//     private userSrv: ManageUsersService,
+//     private notification: NotificationService,
+//     private loaderService: LoaderService,
+//     private accessSrv: AccessControlService,
+//     private departmentSrv: DepartmentService,
+//     @Inject(NZ_MODAL_DATA)
+//     public params: { type: Mode; data: UsersListRecord }
+//   ) {
+//     super();
+//     this.loading$ = this.loaderService.loading$;
+//     this.initForm();
+//     this.getMasterData();
+//     this.displayMode = params.type;
+//     if (!!params.data) {
+//       this.getUserById(params.data.id);
+//       this.control('employeeId').disable();
+//       this.displayMode === Mode.VIEW
+//         ? this.form.disable()
+//         : this.formFieldControl();
+//     }
+//   }
+
+//   ngOnInit(): void {
+//     this.control('employeeId').valueChanges.subscribe(res => {
+//       if (!!res) {
+//         this.control('email').setValue('');
+//         this.control('firstName').setValue('');
+//         this.control('lastName').setValue('');
+//         this.control('managerEmail').setValue('');
+//         this.control('managerName').setValue('');
+//       }
+//     });
+//     this.control('email').valueChanges.subscribe(email => {
+//       if (email) {
+//         this.handleEmailChange(email);
+//       }
+//     });
+
+//     this.form.valueChanges.subscribe(() => {
+//       this.isFormValueChange = this.isFormChanged();
+//     });
+//   }
+
+//   async getMasterData() {
+//     await Promise.all([
+//       this.accessSrv.getRolesForDropDown().toPromise(),
+//       this.departmentSrv.getDepartmentsForDropDown().toPromise(),
+//     ]).then(
+//       ([roleList, departmentList]: [
+//         ApiResponse<paginatedResult<Role>> | undefined,
+//         ApiResponse<paginatedResult<Department>> | undefined,
+//       ]) => {
+//         this.roleList = roleList ? roleList.result.data : [];
+//         this.departmentList = departmentList ? departmentList.result.data : [];
+//       }
+//     );
+//   }
+
+//   initForm() {
+//     this.form = this.fb.group({
+//       email: new FormControl({ value: '', disabled: true }, [
+//         Validators.required,
+//       ]),
+//       firstName: new FormControl({ value: '', disabled: true }, [
+//         Validators.required,
+//       ]),
+//       lastName: new FormControl({ value: '', disabled: true }, [
+//         Validators.required,
+//       ]),
+//       employeeId: new FormControl('', [Validators.required]), // Label will be changed in HTML only
+//       managerName: new FormControl({ value: '', disabled: true }, [
+//         Validators.required,
+//       ]),
+//       managerEmail: new FormControl({ value: '', disabled: true }, [
+//         Validators.required,
+//       ]),
+//       roleIds: new FormControl([], [Validators.required]),
+//       departmentIds: new FormControl([], [Validators.required]),
+//       isActive: new FormControl(true, [Validators.required]),
+//     });
+//   }
+
+//   syncUserData() {
+//     if (!this.value('employeeId')) {
+//       return;
+//     }
+//     this.loadingSync = true;
+//     this.userSrv
+//       .getUserByEmployeeId(this.value('employeeId'))
+//       .pipe(
+//         takeUntil(this.destroy$),
+//         finalize(() => (this.loadingSync = false))
+//       )
+//       .subscribe({
+//         next: (response: any) => {
+//           this.form.patchValue(response.result);
+//         },
+//         error: (error: ErrorResponse) => {
+//           this.notification.notify(
+//             'error',
+//             'Employee Code or Name not found or is invalid'
+//           );
+//         },
+//       });
+//   }
+
+//   getUserById(userId: number) {
+//     this.loaderService.show();
+//     this.userSrv
+//       .getUserById(userId)
+//       .pipe(
+//         takeUntil(this.destroy$),
+//         finalize(() => this.loaderService.hide())
+//       )
+//       .subscribe({
+//         next: (response: any) => {
+//           this.originalData = response.result;
+//           this.form.patchValue(response.result);
+//         },
+//         error: (error: Error) => {
+//           console.log(error);
+//         },
+//       });
+//   }
+
+//   formFieldControl() {
+//     const enableFields = ['roleIds', 'departmentIds', 'isActive'];
+//     Object.entries(this.form.controls).forEach(([field, control]) => {
+//       if (field !== 'employeeId') {
+//         enableFields.includes(field) ? control.enable() : control.disable();
+//       }
+//     });
+//   }
+
+//   changeMode() {
+//     this.displayMode = this.mode.EDIT;
+//     this.modalRef.updateConfig({ nzTitle: 'Edit Contract User' });
+//     this.formFieldControl();
+//   }
+
+//   handleCancel(): void {
+//     this.modalRef.close();
+//   }
+
+//   openConfirmModal(): void {
+//     this.isVisibleConfirmationModal = true;
+//   }
+
+//   isDepartmentDisabled(department: Department): boolean {
+//     return !this.allowedDepartments.includes(department.id);
+//   }
+
+//   handleEmailChange(email: string): void {
+//     const lowerEmail = email?.toLowerCase();
+//     if (lowerEmail.includes('kbl')) {
+//       this.setDepartmentSelection([1, 2], [1, 2]);
+//       return;
+//     }
+//     if (lowerEmail.includes('kepl')) {
+//       this.setDepartmentSelection([3], [3]);
+//       return;
+//     }
+//     this.setDepartmentSelection([], []);
+//   }
+
+//   private setDepartmentSelection(
+//     allowed: number[],
+//     preselected: number[]
+//   ): void {
+//     this.allowedDepartments = allowed;
+//     this.defaultSelectedDepartments = preselected;
+//     if (preselected.length) {
+//       this.form.get('departmentIds')?.setValue(preselected);
+//     } else {
+//       this.form.get('departmentIds')?.reset();
+//     }
+//   }
+
+//   submitForm(): void {
+//     if (this.form.invalid) {
+//       this.form.markAllAsTouched();
+//       this.form.markAsDirty();
+//       return;
+//     }
+//     this.loading = true;
+//     const operation$ =
+//       this.displayMode === this.mode.EDIT
+//         ? this.userSrv.editUser(this.originalData.id, this.form.getRawValue())
+//         : this.userSrv.createUser(this.form.getRawValue());
+
+//     operation$
+//       .pipe(
+//         take(1),
+//         takeUntil(this.destroy$),
+//         finalize(() => {
+//           this.loading = false;
+//         })
+//       )
+//       .subscribe({
+//         next: () => {
+//           this.handleSuccess();
+//         },
+//         error: (error: ErrorResponse) => {
+//           this.handleError(error);
+//         },
+//       });
+//   }
+
+//   handleSuccess() {
+//     this.form.reset();
+//     this.notification.notify(
+//       'success',
+//       this.displayMode === this.mode.EDIT
+//         ? 'Contract User Updated Successfully'
+//         : 'Contract User Created Successfully'
+//     );
+//     this.modalRef.close();
+//   }
+
+//   handleError(error: ErrorResponse) {
+//     this.notification.notify('error', error.message);
+//   }
+
+//   resetForm() {
+//     this.displayMode === this.mode.EDIT
+//       ? this.form.patchValue(this.originalData)
+//       : this.form.reset();
+//   }
+
+//   ngOnDestroy(): void {
+//     this.destroy$.next();
+//     this.destroy$.complete();
+//   }
+// }

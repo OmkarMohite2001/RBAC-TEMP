@@ -1,0 +1,54 @@
+.widget-box {
+  padding: 20px;
+  background-color: rgb(var(--white));
+  border: 1px solid rgb(var(--border));
+  border-radius: 4px;
+  &__top {
+    width: 100%;
+  }
+  &__title {
+    margin-bottom: 10px;
+    height: 40px;
+    color: rgb(var(--description));
+    display: -webkit-box;
+    max-width: 100%;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &__number {
+    color: rgb(var(--dark-title));
+  }
+  &__icon {
+    padding: 12px;
+    border-radius: 4px;
+    width: 54px;
+    height: 54px;
+    flex: 0;
+    &.widget1 {
+      color: rgb(var(--dark-title));
+      background-color: rgba(var(--orange-light), 0.3);
+    }
+    &.widget2 {
+      color: rgb(var(--pink-dark));
+      background-color: rgba(var(--pink-light), 0.3);
+    }
+    &.widget3 {
+      color: rgb(var(--green-dark));
+      background-color: rgba(var(--green-light), 0.3);
+    }
+    &.widget4 {
+      color: rgb(var(--red-dark));
+      background-color: rgba(var(--red-light), 0.3);
+    }
+    &.widget5 {
+      color: rgb(var(--blue-dark));
+      background-color: rgba(var(--blue-light), 0.3);
+    }
+    &.widget6 {
+      color: rgb(var(--purple-dark));
+      background-color: rgba(var(--purple-light), 0.3);
+    }
+  }
+}

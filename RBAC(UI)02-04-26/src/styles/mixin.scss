@@ -1,0 +1,175 @@
+$spacing: (
+  0: 0px,
+  6: 6px,
+  8: 8px,
+  16: 16px,
+  18: 18px,
+  20: 20px,
+  24: 24px,
+  28: 28px,
+  30: 30px,
+  32: 32px,
+  40: 40px,
+  48: 48px,
+  56: 56px,
+  60: 60px,
+);
+
+$font-size: (
+  12: 12px,
+  14: 14px,
+  16: 16px,
+  18: 18px,
+  20: 20px,
+  24: 24px,
+  26: 26px,
+  32: 32px,
+);
+
+$breakpoints: (
+  xs: 390px,
+  sm: 575px,
+  md: 767px,
+  lg: 991px,
+  xl: 1199px,
+);
+
+@use 'sass:map';
+
+@mixin generate-spacing($property, $short-name, $breakpoints: null) {
+  @each $key, $value in $spacing {
+    .#{$short-name}-#{$key} {
+      #{$property}: #{$value};
+    }
+    .#{$short-name}t-#{$key} {
+      #{$property}-top: #{$value};
+    }
+    .#{$short-name}r-#{$key} {
+      #{$property}-right: #{$value};
+    }
+    .#{$short-name}b-#{$key} {
+      #{$property}-bottom: #{$value};
+    }
+    .#{$short-name}l-#{$key} {
+      #{$property}-left: #{$value};
+    }
+    .#{$short-name}x-#{$key} {
+      #{$property}-left: #{$value};
+      #{$property}-right: #{$value};
+    }
+    .#{$short-name}y-#{$key} {
+      #{$property}-top: #{$value};
+      #{$property}-bottom: #{$value};
+    }
+  }
+  @if $breakpoints != null {
+    @each $breakpoint, $breakpoint-value in $breakpoints {
+      @media screen and (max-width: #{$breakpoint-value}) {
+        @each $key, $value in $spacing {
+          .#{$short-name}-#{$breakpoint}-#{$key} {
+            #{$property}: #{$value};
+          }
+          .#{$short-name}t-#{$breakpoint}-#{$key} {
+            #{$property}-top: #{$value};
+          }
+          .#{$short-name}r-#{$breakpoint}-#{$key} {
+            #{$property}-right: #{$value};
+          }
+          .#{$short-name}b-#{$breakpoint}-#{$key} {
+            #{$property}-bottom: #{$value};
+          }
+          .#{$short-name}l-#{$breakpoint}-#{$key} {
+            #{$property}-left: #{$value};
+          }
+          .#{$short-name}x-#{$breakpoint}-#{$key} {
+            #{$property}-left: #{$value};
+            #{$property}-right: #{$value};
+          }
+          .#{$short-name}y-#{$breakpoint}-#{$key} {
+            #{$property}-top: #{$value};
+            #{$property}-bottom: #{$value};
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin font($font-size, $font-weight, $line-height) {
+  font-size: #{$font-size}px;
+  font-weight: $font-weight;
+  line-height: #{$line-height}px;
+}
+
+// extra
+@mixin generate-font-size() {
+  @each $key, $value in $font-size {
+    .fs-#{$key} {
+      font-size: #{$value} !important;
+    }
+  }
+}
+
+// Media
+@mixin media-min($breakpoint) {
+  @media (min-width: #{map.get($breakpoints, $breakpoint)}) {
+    @content;
+  }
+}
+
+@mixin media-max($breakpoint) {
+  @media (max-width: #{map.get($breakpoints, $breakpoint)}) {
+    @content;
+  }
+}
+
+// Icon Sizes
+@mixin icon($size) {
+  &.s-#{$size} {
+    display: inline-flex;
+    font-size: #{$size}px;
+
+    svg {
+      display: block;
+    }
+  }
+}
+
+// Text Align
+@mixin text-align($alignment) {
+  .text-#{$alignment} {
+    text-align: #{$alignment};
+  }
+}
+
+// Input Style
+@mixin input-style(
+  $height: 50px,
+  $padding: 12px 15px,
+  $border-radius: 8px,
+  $font-size: 16px
+) {
+  border: 1px solid rgb(var(--border));
+  height: $height;
+  padding: $padding;
+  font-size: $font-size;
+  border-radius: $border-radius;
+  box-shadow: none;
+  color: rgb(var(--gray-900));
+}
+
+// Flex @include flex(center, 10px, wrap, column, center);
+@mixin flex(
+  $align: flex-start,
+  $gap: 0,
+  $wrap: nowrap,
+  $direction: row,
+  $justify: flex-start
+) {
+  display: flex;
+  align-items: $align;
+  gap: $gap;
+  flex-wrap: $wrap;
+  flex-direction: $direction;
+  justify-content: $justify;
+}

@@ -1,0 +1,69 @@
+<div [ngClass]="{ 'table-grid-wrap': table }">
+  <div [ngClass]="{ 'table-grid-container': table }">
+    <div class="table-grid table-grid-header" *ngIf="table">
+      <div></div>
+      <div>Read</div>
+      <div>Write</div>
+      <div>Delete</div>
+    </div>
+
+    <nz-tree
+      #nzTree
+      [nzData]="nodes"
+      nzShowLine
+      [nzExpandedIcon]="switcherTpl"
+      [nzTreeTemplate]="treeTpl">
+      <ng-template #switcherTpl let-node>
+        <ng-container *ngIf="!isLeafNode(node)">
+          <ng-container *ngIf="node.isExpanded; else collapsed">
+            <div class="tree-icon">
+              <svg-icon
+                class="icon s-18"
+                src="assets/icon/icon-collapse.svg"></svg-icon>
+            </div>
+          </ng-container>
+          <ng-template #collapsed>
+            <div class="tree-icon">
+              <svg-icon
+                class="icon s-18"
+                src="assets/icon/icon-expand.svg"></svg-icon>
+            </div>
+          </ng-template>
+        </ng-container>
+
+        <ng-template #leafNodeIcon>
+          <span></span>
+        </ng-template>
+      </ng-template>
+
+      <ng-template #treeTpl let-node>
+        <div class="custom-tree-node" [ngClass]="{ 'table-grid': table }">
+          <div>
+            <label class="label">{{ node.title }}</label>
+          </div>
+          <!-- Only show additional checkboxes if table is true -->
+          <ng-container *ngIf="table">
+            <div>
+              <label
+                nz-checkbox
+                [formControl]="getModule(node.key, 'canRead')"
+                [nzDisabled]="view"></label>
+            </div>
+            <div>
+              <label
+                nz-checkbox
+                [formControl]="getModule(node.key, 'canWrite')"
+                [nzDisabled]="view"></label>
+            </div>
+            <div>
+              <label
+                nz-checkbox
+                [formControl]="getModule(node.key, 'canDelete')"
+                [nzDisabled]="view"></label>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </nz-tree>
+  </div>
+</div>

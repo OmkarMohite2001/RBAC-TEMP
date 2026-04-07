@@ -1,0 +1,24 @@
+<nz-header [ngClass]="{ 'scrolled-header': isScrolled }">
+  <div class="page-title">
+    <button
+      nz-button
+      class="btn-tersary btn-icon btn-menu"
+      [nzSize]="'small'"
+      (click)="sidebarOpen()">
+      <svg-icon src="assets/icon/menu-hor.svg" class="icon s-20"></svg-icon>
+    </button>
+    <span>RBAC</span>
+  </div>
+
+  <div class="header-right">
+    <!-- <nz-select nzAllowClear nzPlaceHolder="Select" nzSize="small">
+      <nz-option nzLabel="SMPD" nzValue="SMPD"></nz-option>
+      <nz-option nzLabel="Item 2" nzValue="Item 2"></nz-option>
+      <nz-option nzLabel="Item 3" nzValue="Item 3"></nz-option>
+    </nz-select> -->
+
+    <!-- Conditional Role Based Logo -->
+    <!-- <img class="logo-kepl" src="assets/images/kpl-logo.png" alt="KEPL Logo" /> -->
+    <img class="logo-kbl" src="assets/images/kbl-logo.png" alt="KBL Logo" />
+  </div>
+</nz-header>

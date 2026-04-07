@@ -1,0 +1,32 @@
+@use '../mixin.scss' as mixin;
+.ant-breadcrumb {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  @include mixin.font(14, 500, 20);
+  color: rgb(var(--gray-600));
+  svg {
+    vertical-align: middle;
+  }
+  a {
+    color: rgb(var(--gray-600));
+  }
+  & > nz-breadcrumb-item {
+    display: flex;
+    align-items: center;
+    &:last-child {
+      min-height: 24px;
+    }
+  }
+}
+.ant-breadcrumb-link {
+  position: relative;
+  top: 1px;
+  @include mixin.font(14, 600, 20);
+  color: rgb(var(--primary-color));
+}
+.ant-breadcrumb-separator {
+  margin: 0 12px;
+  margin-top: 4px;
+  color: rgb(var(--dark-title));
+}

@@ -1,0 +1,18 @@
+@use '../../styles/mixin.scss' as mixin;
+.ant-dropdown {
+  &.datepicker-dropdown {
+    width: 375px;
+  }
+  &-menu {
+    padding: 0;
+    border-radius: 4px;
+    &-item {
+      padding: 10px;
+      @include mixin.font(12, 600, 14);
+      color: rgb(var(--gray-600));
+      &:not(:last-child) {
+        border-bottom: 1px solid rgb(var(--border));
+      }
+    }
+  }
+}
