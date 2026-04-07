@@ -27,6 +27,17 @@
         <svg-icon src="assets/icon/sidebar/user.svg"></svg-icon>
         <span>Manage Users</span>
       </li>
+      <li
+        *ngIf="isSupervisor"
+        nz-menu-item
+        routerLink="/manage-contract-user"
+        routerLinkActive="ant-menu-item-selected"
+        tabindex="0"
+        role="button"
+        aria-label="Manage Contract Users">
+        <svg-icon src="assets/icon/sidebar/user.svg"></svg-icon>
+        <span>Manage Contract Users</span>
+      </li>
       <li *ngIf="isAllowApplication"
         nz-menu-item
         routerLink="/applications"

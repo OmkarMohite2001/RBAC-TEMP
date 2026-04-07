@@ -32,6 +32,7 @@ export class SidebarComponent {
   employeeId?: string;
   allowIds: number[] = [];
   isAllowApplication : boolean = false;
+  isSupervisor = false;
   // Sidebar Toggle in Mobile View (Close Class)
   constructor(
     private renderer: Renderer2,
@@ -42,6 +43,27 @@ export class SidebarComponent {
     this.employeeId = this.auth.getEmployeeId();
     this.allowIds = this.config.get('allowIds');
     this.isAllowApplication =  this.userData && this.allowIds && this.allowIds.includes(Number(this.employeeId));
+    const storedRoles = localStorage.getItem('rbacRoles');
+    if (storedRoles) {
+      try {
+        const parsedRoles = this.auth.decryptData(storedRoles);
+        if (Array.isArray(parsedRoles)) {
+          this.isSupervisor = parsedRoles.some(role => {
+            if (typeof role === 'string') {
+              return role.toLowerCase() === 'supervisor';
+            }
+
+            const roleName = role?.roleName || role?.name;
+            return (
+              typeof roleName === 'string' &&
+              roleName.toLowerCase() === 'supervisor'
+            );
+          });
+        }
+      } catch (error) {
+        console.error('Failed to parse roles from localStorage', error);
+      }
+    }
   }
   sidebarClose() {
     const body = document.body;

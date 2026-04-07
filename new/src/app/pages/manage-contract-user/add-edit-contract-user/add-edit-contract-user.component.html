@@ -1,0 +1,125 @@
+<nz-spin [nzSpinning]="loading || loadingSync">
+  <form nz-form [formGroup]="form" nzLayout="vertical">
+    <div nz-row [nzGutter]="[16, 16]">
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Employee Code</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <div style="display: flex; gap: 8px;">
+              <input nz-input formControlName="employeeCode" style="flex: 1;" />
+              <button
+                nz-button
+                nzType="default"
+                type="button"
+                *ngIf="displayMode === mode.ADD"
+                (click)="syncUserData()">
+                Sync
+              </button>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="firstName">First Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="firstName" formControlName="firstName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="lastName">Last Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="lastName" formControlName="lastName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="userRole" nzRequired>User Role</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please select a user role">
+          <nz-select formControlName="userRole" nzPlaceHolder="Select Role">
+            <nz-option *ngFor="let role of roleList" [nzValue]="role.id" [nzLabel]="role.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="departmentIds" nzRequired>Department</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please select at least one department">
+          <nz-select formControlName="departmentIds" nzMode="multiple" nzPlaceHolder="Select Departments">
+            <nz-option *ngFor="let dept of departmentList" [nzValue]="dept.id" [nzLabel]="dept.name">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="employeeStartDate" [nzRequired]="true">Start Date</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="employeeStartDate" nzFormat="yyyy-MM-dd"
+              style="width: 100%"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="employeeEndDate" [nzRequired]="true">End Date</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="employeeEndDate" nzFormat="yyyy-MM-dd"
+              style="width: 100%"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="12">
+        <nz-form-item>
+          <nz-form-label nzFor="isTempPassword">Is Temp Password</nz-form-label>
+          <nz-form-control>
+            <nz-switch [formControl]="isTempPasswordControl" nzCheckedChildren="Yes" nzUnCheckedChildren="No">
+            </nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <ng-container *nzModalFooter>
+      <div class="m-footer-left">
+        <button nz-button class="btn-gray" (click)="handleCancel()">
+          Cancel
+        </button>
+        <button
+          nz-button
+          class="btn-sky-blue"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="resetForm()">
+          Reset
+        </button>
+      </div>
+      <div class="m-footer-left">
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!isFormValueChange && displayMode === mode.EDIT"
+          [nzLoading]="loading"
+          *ngIf="displayMode !== mode.VIEW"
+          (click)="onSave()">
+          {{ displayMode === mode.ADD ? 'Save' : 'Update' }}
+        </button>
+
+        <button
+          nz-button
+          nzType="primary"
+          *ngIf="displayMode === mode.VIEW"
+          (click)="changeMode()">
+          Edit
+        </button>
+      </div>
+    </ng-container>
+  </form>
+</nz-spin>

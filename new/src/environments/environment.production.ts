@@ -1,5 +1,8 @@
 export const environment = {
     apiUrl: 'https://kblintranet.kirloskarpumps.com/RBAC/API',
+    rbacApiUrl: 'https://uatintranet.kirloskarpumps.com/RoutCardUAT/API/api',
+    rbacApiSUrl:
+      'https://uatappapi.kirloskarpumps.com/AppServices/APIGateway/gateway/ContractEmpDetails',
     baseHref: '/RBAC/Web/',
     production: true,
 

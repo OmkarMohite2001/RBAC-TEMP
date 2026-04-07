@@ -4,11 +4,12 @@ export interface Login {
   }
   
   
-  export interface LoginResponse {
-      token: string;
-      roles: string[];
-      permissions: Permission[]
-    }
+export interface LoginResponse {
+    token: string;
+    roles: string[];
+    permissions: Permission[]
+    userId?: string;
+  }
     
   export interface Permission {
       applicationId: number;

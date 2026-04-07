@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
-  finalize,
   of,
   switchMap,
+  throwError,
   tap,
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -56,37 +56,55 @@ export class AuthService {
   //   }
   // }
 
+  validateEmployee(operatorId: string, password: string) {
+    return this.http.post(`${environment.rbacApiUrl}/validate/validateEmployee`, {
+      operatorId,
+      password,
+    });
+  }
+
   login(params: Login) {
-    return this.http
-      .post<LoginResponse>(`${this.API_URL}/Auth/Login`, params)
-      .pipe(
-        tap(response => {
-          // Save token, roles, and permissions in localStorage
-          localStorage.setItem(
-            'rbacAuthToken',
-            this.encryptData(response.token)
-          );
-          localStorage.setItem('rbacRoles', this.encryptData(response.roles));
-          localStorage.setItem(
-            'rbacPermissions',
-            this.encryptData(response.permissions)
-          );
-          localStorage.setItem(
-            'employeeId',
-            this.encryptData(params.strLoginId)
-          );
+    return this.validateEmployee(params.strLoginId, params.strPassword).pipe(
+      catchError(error => {
+        if (error.status === 401) {
+          return of(null);
+        }
+        return throwError(() => error);
+      }),
+      switchMap(() =>
+        this.http.post<LoginResponse>(`${this.API_URL}/Auth/Login`, params).pipe(
+          tap(response => {
+            // Save token, roles, and permissions in localStorage
+            localStorage.setItem(
+              'rbacAuthToken',
+              this.encryptData(response.token)
+            );
+            localStorage.setItem('rbacRoles', this.encryptData(response.roles));
+            localStorage.setItem(
+              'rbacPermissions',
+              this.encryptData(response.permissions)
+            );
+            localStorage.setItem(
+              'employeeId',
+              this.encryptData(params.strLoginId)
+            );
+            if (response.userId !== undefined) {
+              localStorage.setItem('userId', this.encryptData(response.userId));
+            }
 
-          // Update auth state
-          this.authStateSubject.next(true);
+            // Update auth state
+            this.authStateSubject.next(true);
 
-          // Start the session timeout
-          this.startSessionTimeout();
-        }),
-        catchError(error => this.errorHandler.handleError(error)),
-        switchMap(() => {
-          return [true];
-        })
-      );
+            // Start the session timeout
+            this.startSessionTimeout();
+          }),
+          catchError(error => this.errorHandler.handleError(error)),
+          switchMap(() => {
+            return [true];
+          })
+        )
+      )
+    );
   }
 
   private startSessionTimeout(): void {
@@ -106,6 +124,7 @@ export class AuthService {
     localStorage.removeItem('rbacRoles');
     localStorage.removeItem('rbacPermissions');
     localStorage.removeItem('employeeId');
+    localStorage.removeItem('userId');
     this.router.navigate(['/auth/login']);
   }
 
@@ -150,6 +169,11 @@ export class AuthService {
   getEmployeeId() {
     const empId = localStorage.getItem('employeeId');
     return !!empId ? this.decryptData(empId) : null;
+  }
+
+  getUserId() {
+    const userId = localStorage.getItem('userId');
+    return !!userId ? this.decryptData(userId) : null;
   }
 
   // Check if the user is authenticated

@@ -8,6 +8,7 @@ import { AccessControlComponent } from '../../pages/access-control/access-contro
 import { ViewAccessControlComponent } from '../../pages/access-control/view-access-control/view-access-control.component';
 import { AccessLogsComponent } from '../../pages/access-logs/access-logs.component';
 import { authGuard } from '../../core/guards/auth.guard';
+import { ManageContractUserComponent } from '../../pages/manage-contract-user/manage-contract-user.component';
 
 export const appRoutes: Route[] = [
   {
@@ -24,6 +25,12 @@ export const appRoutes: Route[] = [
         component: ManageUsersComponent,
         canActivate: [authGuard],
         title: 'Manage Users',
+      },
+      {
+        path: 'manage-contract-user',
+        component: ManageContractUserComponent,
+        canActivate: [authGuard],
+        title: 'Manage Contract Users',
       },
       {
         path: 'applications',

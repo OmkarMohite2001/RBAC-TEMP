@@ -10,11 +10,13 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   const securityService = inject(SecurityService);
+  const lowerCaseUrl = req.url.toLowerCase();
+  const isValidateApi = lowerCaseUrl.includes('/validate/');
 
   // -----------------------------
   // Security Validation
   // -----------------------------
-  if (req.body && typeof req.body === 'object') {
+  if (!isValidateApi && req.body && typeof req.body === 'object') {
     let isSecurityIssueDetected = false;
     const cleanedBody: Record<string, unknown> = { ...req.body };
 
@@ -44,18 +46,25 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     req.url.includes('/api/') || req.url.includes('/API/')
       ? 'application/json'
       : '*/*';
-  req = req.clone({
-    setHeaders: {
-      Accept: accept,
-      ...(authService.isAuthenticated() && {
-        Authorization: `Bearer  ${authService.getTokenValue()}`,
-      }),
-    },
-  });
+  req = isValidateApi
+    ? req.clone({
+        withCredentials: true,
+        setHeaders: {
+          Accept: accept,
+        },
+      })
+    : req.clone({
+        setHeaders: {
+          Accept: accept,
+          ...(authService.isAuthenticated() && {
+            Authorization: `Bearer  ${authService.getTokenValue()}`,
+          }),
+        },
+      });
 
   return next(req).pipe(
     catchError(error => {
-      if (error.status === 401) {
+      if (error.status === 401 && !isValidateApi) {
         authService.logout();
         router.navigate(['/auth/login']);
       }
