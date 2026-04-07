@@ -43,27 +43,55 @@ export class SidebarComponent {
     this.employeeId = this.auth.getEmployeeId();
     this.allowIds = this.config.get('allowIds');
     this.isAllowApplication =  this.userData && this.allowIds && this.allowIds.includes(Number(this.employeeId));
-    const storedRoles = localStorage.getItem('rbacRoles');
-    if (storedRoles) {
-      try {
-        const parsedRoles = this.auth.decryptData(storedRoles);
-        if (Array.isArray(parsedRoles)) {
-          this.isSupervisor = parsedRoles.some(role => {
-            if (typeof role === 'string') {
-              return role.toLowerCase() === 'supervisor';
-            }
+    this.isSupervisor = this.checkSupervisorAccess();
+  }
 
-            const roleName = role?.roleName || role?.name;
-            return (
-              typeof roleName === 'string' &&
-              roleName.toLowerCase() === 'supervisor'
-            );
-          });
+  private checkSupervisorAccess(): boolean {
+    const plainRoles = localStorage.getItem('roles');
+    if (plainRoles) {
+      try {
+        const parsedRoles = JSON.parse(plainRoles);
+        if (this.hasSupervisorRole(parsedRoles)) {
+          return true;
         }
       } catch (error) {
-        console.error('Failed to parse roles from localStorage', error);
+        console.error('Failed to parse plain roles from localStorage', error);
       }
     }
+
+    const encryptedRoles = localStorage.getItem('rbacRoles');
+    if (encryptedRoles) {
+      try {
+        const parsedRoles = this.auth.decryptData(encryptedRoles);
+        if (this.hasSupervisorRole(parsedRoles)) {
+          return true;
+        }
+      } catch (error) {
+        console.error('Failed to parse encrypted roles from localStorage', error);
+      }
+    }
+
+    return this.hasSupervisorRole(this.userData?.roles);
+  }
+
+  private hasSupervisorRole(roles: unknown): boolean {
+    if (!Array.isArray(roles)) {
+      return false;
+    }
+
+    return roles.some(role => {
+      if (typeof role === 'string') {
+        return role.toLowerCase() === 'supervisor';
+      }
+
+      if (typeof role === 'object' && role !== null) {
+        const roleName = (role as { roleName?: string; name?: string }).roleName ||
+          (role as { roleName?: string; name?: string }).name;
+        return typeof roleName === 'string' && roleName.toLowerCase() === 'supervisor';
+      }
+
+      return false;
+    });
   }
   sidebarClose() {
     const body = document.body;

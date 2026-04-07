@@ -80,6 +80,7 @@ export class AuthService {
               this.encryptData(response.token)
             );
             localStorage.setItem('rbacRoles', this.encryptData(response.roles));
+            localStorage.setItem('roles', JSON.stringify(response.roles));
             localStorage.setItem(
               'rbacPermissions',
               this.encryptData(response.permissions)
@@ -90,6 +91,7 @@ export class AuthService {
             );
             if (response.userId !== undefined) {
               localStorage.setItem('userId', this.encryptData(response.userId));
+              localStorage.setItem('plainUserId', JSON.stringify(response.userId));
             }
 
             // Update auth state
@@ -122,9 +124,11 @@ export class AuthService {
   logout() {
     localStorage.removeItem('rbacAuthToken');
     localStorage.removeItem('rbacRoles');
+    localStorage.removeItem('roles');
     localStorage.removeItem('rbacPermissions');
     localStorage.removeItem('employeeId');
     localStorage.removeItem('userId');
+    localStorage.removeItem('plainUserId');
     this.router.navigate(['/auth/login']);
   }
 
